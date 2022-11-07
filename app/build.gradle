@@ -50,7 +50,7 @@ android {
 dependencies {
     def room = "2.4.3"
     def coreKtx = "1.9.0"
-    def fragmentKtx = "1.5.4"
+    def activityKtx = "1.6.1"
     def appCompat = "1.5.1"
     def constraintLayout = "2.1.4"
     def material = "1.7.0"
@@ -69,12 +69,13 @@ dependencies {
     implementation "androidx.core:core-ktx:$coreKtx"
     implementation "androidx.appcompat:appcompat:$appCompat"
     implementation "androidx.constraintlayout:constraintlayout:$constraintLayout"
-    implementation "androidx.fragment:fragment-ktx:$fragmentKtx"
+    implementation "androidx.activity:activity-ktx:$activityKtx"
     // Material
     implementation "com.google.android.material:material:$material"
     // ViewModel
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycleViewModelKtx"
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycleViewModelKtx"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-savedstate:$lifecycleViewModelKtx"
     // Dagger
     implementation "com.google.dagger:dagger:$dagger"
     implementation "com.google.dagger:dagger-android-support:$dagger"

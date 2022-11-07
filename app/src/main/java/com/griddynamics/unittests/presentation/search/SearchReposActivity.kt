@@ -17,7 +17,7 @@ import com.griddynamics.unittests.presentation.extensions.hideKeyboard
 import com.griddynamics.unittests.presentation.extensions.showToast
 import com.griddynamics.unittests.presentation.search.adapter.ReposAdapter
 import com.griddynamics.unittests.presentation.search.viewmodel.SearchReposViewModel
-import com.griddynamics.unittests.presentation.search.viewmodel.SearchReposViewModelFactory
+import com.griddynamics.unittests.presentation.search.viewmodel.SearchReposViewModelAssistedFactory
 import com.griddynamics.unittests.presentation.util.DefaultTextWatcher
 import com.griddynamics.unittests.presentation.util.ItemOffsetDecoration
 import retrofit2.HttpException
@@ -28,9 +28,10 @@ class SearchReposActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySearchReposBinding
 
     @Inject
-    lateinit var viewModelFactory: SearchReposViewModelFactory
+    lateinit var assistedFactory: SearchReposViewModelAssistedFactory
+
     private val viewModel: SearchReposViewModel by viewModels {
-        viewModelFactory
+        assistedFactory.create(this)
     }
 
     private val reposAdapter by lazy { ReposAdapter() }
