@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">EvolutionOfUnitTestsApp</string>
+    <string name="btn_search_text">Show repos</string>
+    <string name="input_search_hint">Input full GitHub username</string>
+    <string name="input_search_empty_error">Please enter a valid username</string>
+    <string name="no_internet_connection">Please check internet connection</string>
+    <string name="something_went_wrong">Something went wrong. Please try again later</string>
+    <string name="server_error">Server error. Please try again later</string>
+    <string name="search_result_empty">No repos found</string>
+    <string name="loading">Loading&#8230;</string>
 </resources>

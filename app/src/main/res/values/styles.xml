@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="TextNormal">
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="TextBold" parent="TextNormal">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="TextDescription">
+        <item name="android:textColor">@color/black_90</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="TextSearchResultEmpty" parent="TextBold">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+</resources>
