@@ -7,7 +7,7 @@ import com.griddynamics.unittests.domain.model.Repo
 
 class ReposMapper {
 
-    fun mapToStorage(repo: Repo): ReposEntity {
+    fun mapDomainToStorage(repo: Repo): ReposEntity {
         return ReposEntity(
             id = repo.id.orZero(),
             name = repo.name,
@@ -16,7 +16,7 @@ class ReposMapper {
         )
     }
 
-    fun mapToDomain(repo: ReposEntity): Repo {
+    fun mapStorageToDomain(repo: ReposEntity): Repo {
         return Repo(
             id = repo.id,
             name = repo.name,
@@ -25,7 +25,7 @@ class ReposMapper {
         )
     }
 
-    fun mapToDomain(repo: RepoResponse): Repo {
+    fun mapApiToDomain(repo: RepoResponse): Repo {
         return Repo(
             id = repo.id.orZero(),
             name = repo.name.orEmpty(),

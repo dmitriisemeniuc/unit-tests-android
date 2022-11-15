@@ -29,7 +29,7 @@ class ReposRepositoryImpl(
         val localData = loadDataFromDb(user)
         if (shouldFetch(user = user, data = localData)) {
             emit(Result.Loading())
-            when(val apiResponse = loadDataFromNetwork(user)) {
+            when (val apiResponse = loadDataFromNetwork(user)) {
                 is ApiResponse.Success -> {
                     saveData(apiResponse.data)
                     val freshData = loadDataFromDb(user)
@@ -47,7 +47,7 @@ class ReposRepositoryImpl(
 
     private suspend fun loadDataFromDb(user: String): List<Repo> {
         return reposLocalDataSource.getReposByUser(user).map {
-            reposMapper.mapToDomain(it)
+            reposMapper.mapStorageToDomain(it)
         }
     }
 
@@ -66,7 +66,7 @@ class ReposRepositoryImpl(
                     }
                     else -> {
                         ApiResponse.Success(response.map {
-                            reposMapper.mapToDomain(it)
+                            reposMapper.mapApiToDomain(it)
                         })
                     }
                 }
@@ -80,7 +80,7 @@ class ReposRepositoryImpl(
 
     private suspend fun saveData(data: List<Repo>) {
         reposLocalDataSource.saveRepos(data.map {
-            reposMapper.mapToStorage(it)
+            reposMapper.mapDomainToStorage(it)
         })
     }
 
