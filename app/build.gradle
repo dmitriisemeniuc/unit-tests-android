@@ -64,7 +64,13 @@ dependencies {
     def retrofit2KotlinxSerializationConverter = "0.8.0"
     def junit = "4.13.2"
     def assertjCore = "3.6.1"
-
+    def hamcrestJunit = "2.0.0.0"
+    def mockk = "1.10.6"
+    def mockito = "2.25.0"
+    def mockitoAll = "1.10.19"
+    def mockitoAndroid = "2.25.0"
+    def testArchCore = "2.1.0"
+    def coroutines = '1.6'
 
     // AndroidX
     implementation "androidx.core:core-ktx:$coreKtx"
@@ -99,11 +105,18 @@ dependencies {
     // To use Kotlin annotation processing tool (kapt)
     kapt "androidx.room:room-compiler:$room"
     // Tests
-    testImplementation("com.squareup.okhttp3:mockwebserver:$okhttp")
+    testImplementation "com.squareup.okhttp3:mockwebserver:$okhttp"
     testImplementation "androidx.room:room-testing:$room"
     testImplementation "junit:junit:$junit"
-    testImplementation("org.assertj:assertj-core:$assertjCore")
-    testImplementation "org.hamcrest:hamcrest-junit:2.0.0.0"
-    androidTestImplementation 'androidx.test.ext:junit:1.1.4'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.0'
+    testImplementation "org.assertj:assertj-core:$assertjCore"
+    testImplementation "org.hamcrest:hamcrest-junit:$hamcrestJunit"
+    // MockK currently has a dependency on Byte Buddy
+    testRuntimeOnly "net.bytebuddy:byte-buddy:1.12.18"
+    testImplementation "io.mockk:mockk:$mockk"
+    testImplementation "io.mockk:mockk-common:$mockk"
+    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutines"
+    testImplementation "org.mockito:mockito-core:$mockito"
+    testImplementation "org.mockito:mockito-all:$mockitoAll"
+    testImplementation "org.mockito:mockito-android:$mockitoAndroid"
+    testImplementation "androidx.arch.core:core-testing:$testArchCore"
 }
