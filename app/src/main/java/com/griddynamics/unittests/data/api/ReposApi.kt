@@ -10,7 +10,7 @@ interface ReposApi {
     suspend fun getReposByUser(@Path("user") user: String?): List<RepoResponse>
 
     companion object {
-        const val ENDPOINT = "https://api.github.com"
+        const val BASE_URL = "https://api.github.com"
         const val GET_REPOS_BY_USER_PATH = "/users/{user}/repos"
     }
 }

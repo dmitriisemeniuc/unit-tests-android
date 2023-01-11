@@ -21,7 +21,7 @@ class ApiModule {
         return RetrofitHelper.create(
             endpoint = ReposApi::class.java,
             okHttpClient = okHttpClient,
-            baseUrl = ReposApi.ENDPOINT
+            baseUrl = ReposApi.BASE_URL
         )
     }
 

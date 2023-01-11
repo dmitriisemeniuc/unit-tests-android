@@ -67,8 +67,10 @@ class SearchReposActivity : AppCompatActivity() {
     private fun setListeners() {
         binding.btnSearch.setOnClickListener {
             hideKeyboard(binding.etSearch)
-            val owner = binding.etSearch.text?.toString()?.trim()
-            viewModel.search(owner)
+            val owner = binding.etSearch.text?.toString()?.trim()?.lowercase()
+            owner?.let {
+                viewModel.search(owner)
+            }
         }
     }
 

@@ -1,6 +1,6 @@
 package com.griddynamics.unittests.di
 
-import android.app.Application
+import android.content.Context
 import com.griddynamics.unittests.data.source.local.ReposLocalDataSource
 import com.griddynamics.unittests.data.source.local.ReposLocalDataSourceImpl
 import com.griddynamics.unittests.data.db.dao.ReposDao
@@ -10,6 +10,7 @@ import com.griddynamics.unittests.data.source.mapper.ReposMapper
 import com.griddynamics.unittests.domain.repository.ReposRepository
 import dagger.Module
 import dagger.Provides
+import kotlinx.coroutines.Dispatchers
 
 @Module
 class DataModule {
@@ -26,16 +27,17 @@ class DataModule {
 
     @Provides
     fun provideReposRepository(
-        application: Application,
+        context: Context,
         reposRemoteDataSource: ReposRemoteDataSource,
         reposLocalDataSource: ReposLocalDataSource,
         reposMapper: ReposMapper
     ): ReposRepository {
         return ReposRepositoryImpl(
-            application = application,
+            context = context,
             reposRemoteDataSource = reposRemoteDataSource,
             reposLocalDataSource = reposLocalDataSource,
-            reposMapper = reposMapper
+            reposMapper = reposMapper,
+            dispatcher = Dispatchers.IO
         )
     }
 }

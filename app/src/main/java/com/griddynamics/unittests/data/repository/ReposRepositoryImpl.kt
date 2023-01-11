@@ -1,6 +1,9 @@
 package com.griddynamics.unittests.data.repository
 
-import android.app.Application
+import android.content.Context
+import androidx.annotation.VisibleForTesting
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.liveData
 import com.griddynamics.unittests.common.net.ApiResponse
 import com.griddynamics.unittests.common.net.NetworkFailure
 import com.griddynamics.unittests.common.net.NotFoundException
@@ -12,20 +15,22 @@ import com.griddynamics.unittests.domain.repository.ReposRepository
 import com.griddynamics.unittests.common.net.Result
 import com.griddynamics.unittests.presentation.extensions.isNetworkAvailable
 import com.griddynamics.unittests.presentation.util.CacheTimeLimiter
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.CoroutineDispatcher
 import java.util.concurrent.TimeUnit
 
 class ReposRepositoryImpl(
-    private val application: Application,
+    private val context: Context,
     private val reposRemoteDataSource: ReposRemoteDataSource,
     private val reposLocalDataSource: ReposLocalDataSource,
-    private val reposMapper: ReposMapper
+    private val reposMapper: ReposMapper,
+    private val repoListCacheTimeLimiter: CacheTimeLimiter<String> = CacheTimeLimiter(
+        10,
+        TimeUnit.MINUTES
+    ),
+    private val dispatcher: CoroutineDispatcher
 ) : ReposRepository {
 
-    private val repoListCacheTimeLimiter = CacheTimeLimiter<String>(10, TimeUnit.MINUTES)
-
-    override fun getReposByUser(user: String): Flow<Result<List<Repo>>> = flow {
+    override fun getReposByUser(user: String): LiveData<Result<List<Repo>>> = liveData(dispatcher) {
         val localData = loadDataFromDb(user)
         if (shouldFetch(user = user, data = localData)) {
             emit(Result.Loading())
@@ -45,48 +50,52 @@ class ReposRepositoryImpl(
         }
     }
 
-    private suspend fun loadDataFromDb(user: String): List<Repo> {
-        return reposLocalDataSource.getReposByUser(user).map {
+    @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
+    suspend fun loadDataFromDb(user: String): List<Repo> {
+        val repos = reposLocalDataSource.getReposByUser(user)
+        return repos.map {
             reposMapper.mapStorageToDomain(it)
         }
     }
 
-    private fun shouldFetch(user: String, data: List<Repo>?): Boolean {
+    @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
+    fun shouldFetch(user: String, data: List<Repo>?): Boolean {
         return data == null || data.isEmpty() || repoListCacheTimeLimiter.shouldFetch(user)
     }
 
-    private suspend fun loadDataFromNetwork(user: String): ApiResponse<List<Repo>> {
-        return if (isOnline()) {
-            runCatching {
-                reposRemoteDataSource.getReposByUser(user)
-            }.mapCatching { response ->
-                when {
-                    response.isEmpty() -> {
-                        throw NotFoundException()
-                    }
-                    else -> {
-                        ApiResponse.Success(response.map {
-                            reposMapper.mapApiToDomain(it)
-                        })
-                    }
-                }
-            }.getOrElse {
-                ApiResponse.Error(it)
+    @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
+    suspend fun loadDataFromNetwork(user: String): ApiResponse<List<Repo>> {
+        if (!isOnline()) {
+            return ApiResponse.Error(NetworkFailure())
+        }
+
+        return runCatching {
+            reposRemoteDataSource.getReposByUser(user)
+        }.mapCatching { response ->
+            if (response.isEmpty()) {
+                throw NotFoundException()
             }
-        } else {
-            ApiResponse.Error(NetworkFailure())
+            val repos = response.map {
+                reposMapper.mapApiToDomain(it)
+            }
+            ApiResponse.Success(repos)
+        }.getOrElse {
+            ApiResponse.Error(it)
         }
     }
 
-    private suspend fun saveData(data: List<Repo>) {
-        reposLocalDataSource.saveRepos(data.map {
+    @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
+    suspend fun saveData(data: List<Repo>) {
+        val repos = data.map {
             reposMapper.mapDomainToStorage(it)
-        })
+        }
+        reposLocalDataSource.saveRepos(repos)
     }
 
     private fun onFetchFailed(user: String) {
         repoListCacheTimeLimiter.reset(user)
     }
 
-    private fun isOnline() = application.isNetworkAvailable()
+    @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
+    fun isOnline() = context.isNetworkAvailable()
 }

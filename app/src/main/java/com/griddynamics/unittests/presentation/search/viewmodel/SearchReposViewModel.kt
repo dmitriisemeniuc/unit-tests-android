@@ -12,11 +12,10 @@ class SearchReposViewModel(
 
     val repositories = savedStateHandle.getLiveData<String>(KEY_OWNER).switchMap { owner ->
         getReposByUserUseCase.execute(owner)
-            .asLiveData(viewModelScope.coroutineContext)
     }
 
-    fun search(owner: String?) {
-        if (owner != null && owner.isNotEmpty()) {
+    fun search(owner: String) {
+        if (owner.isNotEmpty()) {
             searchByOwner(owner)
         }
     }
