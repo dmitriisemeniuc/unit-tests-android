@@ -2,7 +2,9 @@ package com.griddynamics.unittests.helper
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
-import io.mockk.*
+import java.util.concurrent.CountDownLatch
+import java.util.concurrent.TimeUnit
+import java.util.concurrent.TimeoutException
 
 class LiveDataValueCapture<T> {
 
@@ -32,13 +34,27 @@ inline fun <T> LiveData<T>.captureValues(block: LiveDataValueCapture<T>.() -> Un
     }
 }
 
-inline fun <reified T : Any> LiveData<T>.captureValues(): List<T> {
-    val observer = mockk<Observer<T>>()
-    val slot = slot<T>()
-    val list = mutableListOf<T>()
-    every { observer.onChanged(capture(slot)) } answers {
-        list.add(slot.captured)
+fun <T> LiveData<T>.getOrAwaitValue(
+    time: Long = 2,
+    timeUnit: TimeUnit = TimeUnit.SECONDS
+): T {
+    var data: T? = null
+    val latch = CountDownLatch(1)
+    val observer = object : Observer<T> {
+        override fun onChanged(o: T?) {
+            data = o
+            latch.countDown()
+            this@getOrAwaitValue.removeObserver(this)
+        }
     }
+
     this.observeForever(observer)
-    return list
+
+    // Don't wait indefinitely if the LiveData is not set.
+    if (!latch.await(time, timeUnit)) {
+        throw TimeoutException("LiveData value was never set.")
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    return data as T
 }
