@@ -7,7 +7,7 @@ import androidx.room.PrimaryKey
 data class ReposEntity(
     @PrimaryKey
     val id: Long,
-    val name: String,
-    val description: String?,
-    val user: String
+    var name: String,
+    var description: String?,
+    var user: String
 )

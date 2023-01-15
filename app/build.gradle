@@ -62,7 +62,7 @@ dependencies {
     def okhttp = "4.10.0"
     def kotlinxSerializationJson = "1.3.2"
     def retrofit2KotlinxSerializationConverter = "0.8.0"
-    def junit = "4.13.2"
+    def junit = "4.12"
     def assertjCore = "3.6.1"
     def hamcrestJunit = "2.0.0.0"
     def mockk = "1.10.6"
@@ -70,7 +70,7 @@ dependencies {
     def mockitoAll = "1.10.19"
     def mockitoAndroid = "2.25.0"
     def testArchCore = "2.1.0"
-    def coroutines = '1.6'
+    def coroutines = '1.6.4'
 
     // AndroidX
     implementation "androidx.core:core-ktx:$coreKtx"
@@ -92,13 +92,13 @@ dependencies {
     // Retrofit & OkHttp
     implementation "com.squareup.retrofit2:retrofit:$retrofit"
     implementation "com.squareup.retrofit2:converter-gson:$converterGson"
-    //OkHttp
+    // OkHttp
     implementation "com.squareup.okhttp3:okhttp:$okhttp"
     implementation "com.squareup.okhttp3:logging-interceptor:$okhttp"
-    //Serialization
+    // Serialization
     implementation "org.jetbrains.kotlinx:kotlinx-serialization-json:$kotlinxSerializationJson"
     implementation "com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter:$retrofit2KotlinxSerializationConverter"
-    //Room
+    // Room
     implementation "androidx.room:room-runtime:$room"
     implementation "androidx.room:room-ktx:$room"
     annotationProcessor "androidx.room:room-compiler:$room"
@@ -119,4 +119,11 @@ dependencies {
     testImplementation "org.mockito:mockito-all:$mockitoAll"
     testImplementation "org.mockito:mockito-android:$mockitoAndroid"
     testImplementation "androidx.arch.core:core-testing:$testArchCore"
+    // Dependencies for Android instrumented unit tests
+    androidTestImplementation 'androidx.test:core:1.5.0'
+    androidTestImplementation "junit:junit:$junit"
+    androidTestImplementation "org.mockito:mockito-core:$mockito"
+    androidTestImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutines"
+    androidTestImplementation "androidx.arch.core:core-testing:$testArchCore"
+    androidTestImplementation "androidx.test:runner:1.5.2"
 }
