@@ -11,7 +11,19 @@ class ReposLocalDataSourceImpl(
         return reposDao.findByUser(user).orEmpty()
     }
 
+    override suspend fun getRepoById(id: Long): ReposEntity? {
+        return reposDao.findById(id)
+    }
+
     override suspend fun saveRepos(repos: List<ReposEntity>) {
         reposDao.insertAll(repos)
+    }
+
+    override suspend fun saveRepo(repo: ReposEntity) {
+        reposDao.insert(repo)
+    }
+
+    override suspend fun updateRepo(repo: ReposEntity) {
+        reposDao.update(repo)
     }
 }

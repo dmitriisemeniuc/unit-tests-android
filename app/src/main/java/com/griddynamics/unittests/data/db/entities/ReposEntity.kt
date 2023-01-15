@@ -10,4 +10,11 @@ data class ReposEntity(
     var name: String,
     var description: String?,
     var user: String
-)
+) {
+    companion object {
+        const val ID = 1L
+        const val NAME = "name"
+        const val DESCRIPTION = "description"
+        const val USER = "test_user"
+    }
+}
