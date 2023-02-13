@@ -7,7 +7,7 @@ import com.griddynamics.unittests.common.net.NetworkFailure
 import com.griddynamics.unittests.common.net.NotFoundException
 import com.griddynamics.unittests.common.net.Result
 import com.griddynamics.unittests.data.api.ReposApi
-import com.griddynamics.unittests.data.api.model.RepoResponse
+import com.griddynamics.unittests.data.api.model.response.RepoResponse
 import com.griddynamics.unittests.data.db.dao.ReposDao
 import com.griddynamics.unittests.data.db.entities.ReposEntity
 import com.griddynamics.unittests.data.source.local.ReposLocalDataSource

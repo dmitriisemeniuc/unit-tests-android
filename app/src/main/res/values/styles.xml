@@ -10,12 +10,17 @@
         <item name="android:textStyle">bold</item>
     </style>
 
-    <style name="TextDescription">
+    <style name="TextMedium">
         <item name="android:textColor">@color/black_90</item>
         <item name="android:textSize">14sp</item>
     </style>
 
-    <style name="TextSearchResultEmpty" parent="TextBold">
+    <style name="TextSmall">
+        <item name="android:textColor">@color/black_90</item>
+        <item name="android:textSize">11sp</item>
+    </style>
+
+    <style name="TextResultEmpty" parent="TextBold">
         <item name="android:textSize">20sp</item>
         <item name="android:textStyle">bold</item>
     </style>

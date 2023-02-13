@@ -7,7 +7,7 @@ import com.griddynamics.unittests.common.extensions.isTrue
 import com.griddynamics.unittests.databinding.LayoutItemRepoBinding
 import com.griddynamics.unittests.domain.model.Repo
 
-class RepoViewHolder(private val binding: LayoutItemRepoBinding) :
+class RepoViewHolder(val binding: LayoutItemRepoBinding) :
     RecyclerView.ViewHolder(binding.root) {
 
     fun bind(repo: Repo) = itemView.run {

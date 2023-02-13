@@ -4,6 +4,8 @@ import com.griddynamics.unittests.data.source.remote.ReposRemoteDataSource
 import com.griddynamics.unittests.data.source.remote.ReposRemoteDataSourceImpl
 import com.griddynamics.unittests.data.api.ReposApi
 import com.griddynamics.unittests.data.api.helper.RetrofitHelper
+import com.griddynamics.unittests.data.source.remote.RepoCommitsRemoDataSourceImpl
+import com.griddynamics.unittests.data.source.remote.RepoCommitsRemoteDataSource
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
@@ -28,5 +30,10 @@ class ApiModule {
     @Provides
     fun providesReposRemoteDataSource(api: ReposApi): ReposRemoteDataSource {
         return ReposRemoteDataSourceImpl(api)
+    }
+
+    @Provides
+    fun providesRepoCommitsRemoteDataSource(api: ReposApi): RepoCommitsRemoteDataSource {
+        return RepoCommitsRemoDataSourceImpl(api)
     }
 }

@@ -2,6 +2,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'org.jetbrains.kotlin.android'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'kotlinx-serialization'
+apply plugin: 'androidx.navigation.safeargs.kotlin'
 
 android {
     namespace 'com.griddynamics.unittests'
@@ -9,7 +10,7 @@ android {
 
     defaultConfig {
         applicationId "com.griddynamics.unittests"
-        minSdk 23
+        minSdk 26
         targetSdk 33
         versionCode 1
         versionName "1.0"
@@ -48,10 +49,11 @@ android {
 }
 
 dependencies {
-    def room = "2.4.3"
+    def room = "2.5.0"
     def coreKtx = "1.9.0"
     def activityKtx = "1.6.1"
-    def appCompat = "1.5.1"
+    def fragmentKtx = "1.5.5"
+    def appCompat = "1.6.0"
     def constraintLayout = "2.1.4"
     def material = "1.7.0"
     def lifecycleViewModelKtx ="2.5.1"
@@ -71,12 +73,15 @@ dependencies {
     def mockitoAndroid = "2.25.0"
     def testArchCore = "2.1.0"
     def coroutines = '1.6.4'
+    def navigationFragment = "2.5.3"
 
     // AndroidX
     implementation "androidx.core:core-ktx:$coreKtx"
     implementation "androidx.appcompat:appcompat:$appCompat"
     implementation "androidx.constraintlayout:constraintlayout:$constraintLayout"
     implementation "androidx.activity:activity-ktx:$activityKtx"
+    implementation "androidx.fragment:fragment-ktx:$fragmentKtx"
+    implementation "androidx.navigation:navigation-fragment:$navigationFragment"
     // Material
     implementation "com.google.android.material:material:$material"
     // ViewModel

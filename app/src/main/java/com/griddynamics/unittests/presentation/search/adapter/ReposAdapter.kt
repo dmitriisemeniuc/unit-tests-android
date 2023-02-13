@@ -7,7 +7,9 @@ import androidx.recyclerview.widget.ListAdapter
 import com.griddynamics.unittests.databinding.LayoutItemRepoBinding
 import com.griddynamics.unittests.domain.model.Repo
 
-class ReposAdapter : ListAdapter<Repo, RepoViewHolder>(REPO_COMPARATOR) {
+class ReposAdapter(
+    private val callback: ((Repo) -> Unit)?
+) : ListAdapter<Repo, RepoViewHolder>(REPO_COMPARATOR) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RepoViewHolder {
         val binding = LayoutItemRepoBinding.inflate(
@@ -17,7 +19,11 @@ class ReposAdapter : ListAdapter<Repo, RepoViewHolder>(REPO_COMPARATOR) {
     }
 
     override fun onBindViewHolder(holder: RepoViewHolder, position: Int) {
-        holder.bind(getItem(position))
+        val repo = getItem(position)
+        holder.binding.root.setOnClickListener {
+            callback?.invoke(repo)
+        }
+        holder.bind(repo)
     }
 
     companion object {

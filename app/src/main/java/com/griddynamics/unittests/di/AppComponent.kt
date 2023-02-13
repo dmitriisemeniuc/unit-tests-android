@@ -1,10 +1,12 @@
 package com.griddynamics.unittests.di
 
-import com.griddynamics.unittests.presentation.search.SearchReposActivity
+import com.griddynamics.unittests.presentation.commits.RepoCommitsFragment
+import com.griddynamics.unittests.presentation.search.SearchReposFragment
 import dagger.Component
 
 @Component(modules = [AppModule::class, DatabaseModule::class, DaoModule::class,
     ApiModule::class, DomainModule::class, DataModule::class])
 interface AppComponent {
-    fun inject(searchReposActivity: SearchReposActivity)
+    fun inject(searchFragment: SearchReposFragment)
+    fun inject(repoCommitsFragment: RepoCommitsFragment)
 }

@@ -1,7 +1,7 @@
 package com.griddynamics.unittests.data.source.remote
 
 import com.griddynamics.unittests.data.api.ReposApi
-import com.griddynamics.unittests.data.api.model.RepoResponse
+import com.griddynamics.unittests.data.api.model.response.RepoResponse
 
 class ReposRemoteDataSourceImpl(private val reposApi: ReposApi) : ReposRemoteDataSource {
 

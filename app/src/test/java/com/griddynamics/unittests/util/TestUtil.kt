@@ -1,7 +1,7 @@
 package com.griddynamics.unittests.util
 
 import com.griddynamics.unittests.data.api.model.Owner
-import com.griddynamics.unittests.data.api.model.RepoResponse
+import com.griddynamics.unittests.data.api.model.response.RepoResponse
 import com.griddynamics.unittests.data.db.entities.ReposEntity
 import com.griddynamics.unittests.domain.model.Repo
 import io.mockk.every

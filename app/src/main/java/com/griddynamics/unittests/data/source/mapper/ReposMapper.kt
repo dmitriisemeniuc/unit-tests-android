@@ -1,7 +1,7 @@
 package com.griddynamics.unittests.data.source.mapper
 
 import com.griddynamics.unittests.common.extensions.orZero
-import com.griddynamics.unittests.data.api.model.RepoResponse
+import com.griddynamics.unittests.data.api.model.response.RepoResponse
 import com.griddynamics.unittests.data.db.entities.ReposEntity
 import com.griddynamics.unittests.domain.model.Repo
 

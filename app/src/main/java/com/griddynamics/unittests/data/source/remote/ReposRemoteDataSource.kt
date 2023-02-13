@@ -1,6 +1,6 @@
 package com.griddynamics.unittests.data.source.remote
 
-import com.griddynamics.unittests.data.api.model.RepoResponse
+import com.griddynamics.unittests.data.api.model.response.RepoResponse
 
 interface ReposRemoteDataSource {
 

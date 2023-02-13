@@ -8,7 +8,8 @@
     android:paddingStart="@dimen/repo_item_padding_horizontal"
     android:paddingTop="@dimen/repo_item_padding_top"
     android:paddingEnd="@dimen/repo_item_padding_horizontal"
-    android:paddingBottom="@dimen/repo_item_padding_bottom">
+    android:paddingBottom="@dimen/repo_item_padding_bottom"
+    android:foreground="?attr/selectableItemBackground">
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tvRepoName"
@@ -19,7 +20,7 @@
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tvRepoDescription"
-        style="@style/TextDescription"
+        style="@style/TextNormal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         tools:text="Repo description" />

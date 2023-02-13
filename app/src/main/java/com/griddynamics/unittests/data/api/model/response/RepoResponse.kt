@@ -1,5 +1,6 @@
-package com.griddynamics.unittests.data.api.model
+package com.griddynamics.unittests.data.api.model.response
 
+import com.griddynamics.unittests.data.api.model.Owner
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 

@@ -7,5 +7,6 @@
     <string name="something_went_wrong">Something went wrong. Please try again later</string>
     <string name="server_error">Server error. Please try again later</string>
     <string name="search_result_empty">No repos found</string>
+    <string name="commits_result_empty">No commits found</string>
     <string name="loading">Loading&#8230;</string>
 </resources>

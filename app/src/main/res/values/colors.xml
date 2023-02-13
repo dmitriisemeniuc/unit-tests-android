@@ -9,6 +9,7 @@
     <color name="black_90">#E6000000</color>
     <color name="black_50">#80000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="blue_90">#E60D47A1</color>
 
     <color name="btn_bg">#303f9f</color>
     <color name="btn_disabled_bg">#80303F9F</color>

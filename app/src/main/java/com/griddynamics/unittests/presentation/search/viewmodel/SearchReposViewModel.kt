@@ -31,5 +31,3 @@ class SearchReposViewModel(
         const val KEY_OWNER = "owner"
     }
 }
-
-

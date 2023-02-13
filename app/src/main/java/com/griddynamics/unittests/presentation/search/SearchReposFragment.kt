@@ -1,17 +1,22 @@
 package com.griddynamics.unittests.presentation.search
 
+import android.content.Context
 import android.os.Bundle
 import android.text.Editable
-import androidx.activity.viewModels
-import androidx.appcompat.app.AppCompatActivity
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.core.view.isVisible
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.griddynamics.unittests.R
 import com.griddynamics.unittests.app.App
 import com.griddynamics.unittests.common.extensions.dpToPixel
 import com.griddynamics.unittests.common.net.NetworkFailure
 import com.griddynamics.unittests.common.net.NotFoundException
 import com.griddynamics.unittests.common.net.Result
-import com.griddynamics.unittests.databinding.ActivitySearchReposBinding
+import com.griddynamics.unittests.databinding.FragmentSearchReposBinding
 import com.griddynamics.unittests.domain.model.Repo
 import com.griddynamics.unittests.presentation.extensions.hideKeyboard
 import com.griddynamics.unittests.presentation.extensions.showToast
@@ -23,9 +28,10 @@ import com.griddynamics.unittests.presentation.util.ItemOffsetDecoration
 import retrofit2.HttpException
 import javax.inject.Inject
 
-class SearchReposActivity : AppCompatActivity() {
+class SearchReposFragment : Fragment() {
 
-    private lateinit var binding: ActivitySearchReposBinding
+    private var _binding: FragmentSearchReposBinding? = null
+    private val binding get() = _binding!!
 
     @Inject
     lateinit var assistedFactory: SearchReposViewModelAssistedFactory
@@ -34,19 +40,33 @@ class SearchReposActivity : AppCompatActivity() {
         assistedFactory.create(this)
     }
 
-    private val reposAdapter by lazy { ReposAdapter() }
+    private lateinit var reposAdapter: ReposAdapter
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = ActivitySearchReposBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+    override fun onAttach(context: Context) {
+        (context.applicationContext as App).appComponent.inject(this)
+        super.onAttach(context)
+    }
 
-        (applicationContext as App).appComponent.inject(this)
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        _binding = FragmentSearchReposBinding.inflate(inflater, container, false)
+        return binding.root
+    }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         setListeners()
         initReposRecyclerView()
         setSearchTextWatcher()
         observeSearchResult()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        binding.rvRepos.adapter = null
+        _binding = null
     }
 
     private fun setSearchTextWatcher() {
@@ -60,13 +80,16 @@ class SearchReposActivity : AppCompatActivity() {
     private fun initReposRecyclerView() {
         binding.rvRepos.apply {
             addItemDecoration(ItemOffsetDecoration(itemOffset = 6.dpToPixel()))
+            reposAdapter = ReposAdapter { repo ->
+                openRepo(repo)
+            }
             adapter = reposAdapter
         }
     }
 
     private fun setListeners() {
         binding.btnSearch.setOnClickListener {
-            hideKeyboard(binding.etSearch)
+            activity?.hideKeyboard(binding.etSearch)
             val owner = binding.etSearch.text?.toString()?.trim()?.lowercase()
             owner?.let {
                 viewModel.search(owner)
@@ -75,7 +98,7 @@ class SearchReposActivity : AppCompatActivity() {
     }
 
     private fun observeSearchResult() {
-        viewModel.repositories.observe(this) { result ->
+        viewModel.repositories.observe(viewLifecycleOwner) { result ->
             when (result) {
                 is Result.Success -> {
                     onContentLoaded(result.data)
@@ -120,13 +143,13 @@ class SearchReposActivity : AppCompatActivity() {
             else -> {
                 showNoContentFound()
                 println("ERROR: ${error.message}")
-                showToast(R.string.something_went_wrong)
+                activity?.showToast(R.string.something_went_wrong)
             }
         }
     }
 
     private fun showNoInternetConnectionMessage() {
-        showToast(R.string.no_internet_connection)
+        activity?.showToast(R.string.no_internet_connection)
     }
 
     private fun enableSearchButton() {
@@ -161,5 +184,14 @@ class SearchReposActivity : AppCompatActivity() {
 
     private fun clearAdapter() {
         reposAdapter.submitList(null)
+    }
+
+    private fun openRepo(repo: Repo) {
+        val action = SearchReposFragmentDirections.showRepo(
+            owner = repo.user,
+            repo = repo.name,
+            repoId = repo.id
+        )
+        findNavController().navigate(action)
     }
 }
