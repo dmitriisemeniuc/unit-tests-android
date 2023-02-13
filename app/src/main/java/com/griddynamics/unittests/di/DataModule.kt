@@ -1,19 +1,19 @@
 package com.griddynamics.unittests.di
 
 import android.content.Context
-import com.griddynamics.unittests.data.db.dao.RepoCommitDao
+import com.griddynamics.unittests.data.db.dao.CommitsDao
 import com.griddynamics.unittests.data.source.local.ReposLocalDataSource
 import com.griddynamics.unittests.data.source.local.ReposLocalDataSourceImpl
 import com.griddynamics.unittests.data.db.dao.ReposDao
-import com.griddynamics.unittests.data.repository.RepoCommitsRepositoryImpl
+import com.griddynamics.unittests.data.repository.CommitsRepositoryImpl
 import com.griddynamics.unittests.data.source.remote.ReposRemoteDataSource
 import com.griddynamics.unittests.data.repository.ReposRepositoryImpl
-import com.griddynamics.unittests.data.source.local.RepoCommitsLocalDataSource
-import com.griddynamics.unittests.data.source.local.RepoCommitsLocalDataSourceImpl
-import com.griddynamics.unittests.data.source.mapper.RepoCommitMapper
-import com.griddynamics.unittests.data.source.mapper.ReposMapper
-import com.griddynamics.unittests.data.source.remote.RepoCommitsRemoteDataSource
-import com.griddynamics.unittests.domain.repository.RepoCommitsRepository
+import com.griddynamics.unittests.data.source.local.CommitsLocalDataSource
+import com.griddynamics.unittests.data.source.local.CommitsLocalDataSourceImpl
+import com.griddynamics.unittests.data.source.mapper.CommitMapper
+import com.griddynamics.unittests.data.source.mapper.RepoMapper
+import com.griddynamics.unittests.data.source.remote.CommitsRemoteDataSource
+import com.griddynamics.unittests.domain.repository.CommitsRepository
 import com.griddynamics.unittests.domain.repository.ReposRepository
 import dagger.Module
 import dagger.Provides
@@ -28,8 +28,8 @@ class DataModule {
     }
 
     @Provides
-    fun providesReposMapper(): ReposMapper {
-        return ReposMapper()
+    fun providesRepoMapper(): RepoMapper {
+        return RepoMapper()
     }
 
     @Provides
@@ -37,7 +37,7 @@ class DataModule {
         context: Context,
         reposRemoteDataSource: ReposRemoteDataSource,
         reposLocalDataSource: ReposLocalDataSource,
-        reposMapper: ReposMapper
+        reposMapper: RepoMapper
     ): ReposRepository {
         return ReposRepositoryImpl(
             context = context,
@@ -49,27 +49,27 @@ class DataModule {
     }
 
     @Provides
-    fun providesRepoCommitsLocalDataSource(repoCommitDao: RepoCommitDao): RepoCommitsLocalDataSource {
-        return RepoCommitsLocalDataSourceImpl(repoCommitDao = repoCommitDao)
+    fun providesCommitsLocalDataSource(commitDao: CommitsDao): CommitsLocalDataSource {
+        return CommitsLocalDataSourceImpl(commitDao = commitDao)
     }
 
     @Provides
-    fun providesRepoCommitMapper(): RepoCommitMapper {
-        return RepoCommitMapper()
+    fun providesCommitMapper(): CommitMapper {
+        return CommitMapper()
     }
 
     @Provides
-    fun provideRepoCommitsRepository(
+    fun provideCommitsRepository(
         context: Context,
-        repoCommitsRemoteDataSource: RepoCommitsRemoteDataSource,
-        repoCommitsLocalDataSource: RepoCommitsLocalDataSource,
-        repoCommitsMapper: RepoCommitMapper
-    ): RepoCommitsRepository {
-        return RepoCommitsRepositoryImpl(
+        commitsRemoteDataSource: CommitsRemoteDataSource,
+        commitsLocalDataSource: CommitsLocalDataSource,
+        commitMapper: CommitMapper
+    ): CommitsRepository {
+        return CommitsRepositoryImpl(
             context = context,
-            repoCommitsRemoteDataSource = repoCommitsRemoteDataSource,
-            repoCommitsLocalDataSource = repoCommitsLocalDataSource,
-            repoCommitsMapper = repoCommitsMapper,
+            commitsRemoteDataSource = commitsRemoteDataSource,
+            commitsLocalDataSource = commitsLocalDataSource,
+            commitMapper = commitMapper,
             dispatcher = Dispatchers.IO
         )
     }

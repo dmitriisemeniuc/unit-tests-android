@@ -7,14 +7,14 @@ import androidx.lifecycle.*
 import com.griddynamics.unittests.common.net.NetworkFailure
 import com.griddynamics.unittests.domain.usecase.GetReposByUserUseCase
 import com.griddynamics.unittests.common.net.Result
-import com.griddynamics.unittests.data.api.ReposApi
+import com.griddynamics.unittests.data.api.GitHubApi
 import com.griddynamics.unittests.data.api.model.response.RepoResponse
 import com.griddynamics.unittests.data.db.dao.ReposDao
-import com.griddynamics.unittests.data.db.entities.ReposEntity
+import com.griddynamics.unittests.data.db.entities.RepoEntity
 import com.griddynamics.unittests.data.repository.ReposRepositoryImpl
 import com.griddynamics.unittests.data.source.local.ReposLocalDataSource
 import com.griddynamics.unittests.data.source.local.ReposLocalDataSourceImpl
-import com.griddynamics.unittests.data.source.mapper.ReposMapper
+import com.griddynamics.unittests.data.source.mapper.RepoMapper
 import com.griddynamics.unittests.data.source.remote.ReposRemoteDataSource
 import com.griddynamics.unittests.data.source.remote.ReposRemoteDataSourceImpl
 import com.griddynamics.unittests.domain.model.Repo
@@ -48,9 +48,9 @@ class SearchReposViewModelTest {
 
     private val mockedContext = mockk<Context>(relaxed = true)
     private val mockedApplication = mockk<Application>(relaxed = true)
-    private var mockedReposApi = mockk<ReposApi>()
+    private var mockedReposApi = mockk<GitHubApi>()
     private var mockedReposDao = mockk<ReposDao>()
-    private var reposMapper = ReposMapper()
+    private var reposMapper = RepoMapper()
     private var reposRepository = mockk<ReposRepositoryImpl>()
     private var mockedRepoListCacheTimeLimiter = mockk<CacheTimeLimiter<String>>()
 
@@ -59,7 +59,7 @@ class SearchReposViewModelTest {
     private lateinit var reposRemoteDataSource: ReposRemoteDataSource
     private lateinit var reposLocalDataSource: ReposLocalDataSource
     private lateinit var mockedApiResponse: List<RepoResponse>
-    private lateinit var mockedDbResponse: List<ReposEntity>
+    private lateinit var mockedDbResponse: List<RepoEntity>
     private lateinit var mockedRepos: List<Repo>
 
     // Class under test
@@ -76,7 +76,7 @@ class SearchReposViewModelTest {
             reposLocalDataSource = reposLocalDataSource,
             reposMapper = reposMapper,
             dispatcher = testDispatcher,
-            repoListCacheTimeLimiter = mockedRepoListCacheTimeLimiter
+            cacheTimeLimiter = mockedRepoListCacheTimeLimiter
         )
         getReposByUserUseCase = GetReposByUserUseCase(reposRepository)
         viewModel = SearchReposViewModel(

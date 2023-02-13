@@ -2,17 +2,17 @@ package com.griddynamics.unittests.data.db
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import com.griddynamics.unittests.data.db.dao.RepoCommitDao
+import com.griddynamics.unittests.data.db.dao.CommitsDao
 import com.griddynamics.unittests.data.db.dao.ReposDao
-import com.griddynamics.unittests.data.db.entities.RepoCommitEntity
-import com.griddynamics.unittests.data.db.entities.ReposEntity
+import com.griddynamics.unittests.data.db.entities.CommitEntity
+import com.griddynamics.unittests.data.db.entities.RepoEntity
 
-@Database(version = 1, entities = [ReposEntity::class, RepoCommitEntity::class])
+@Database(version = 1, entities = [RepoEntity::class, CommitEntity::class])
 abstract class AppDatabase : RoomDatabase() {
 
     abstract fun getReposDao() : ReposDao
 
-    abstract fun getRepoCommitDao() : RepoCommitDao
+    abstract fun getRepoCommitDao() : CommitsDao
 
     companion object {
         const val DATABASE_NAME = "database-app"

@@ -5,10 +5,10 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import com.griddynamics.unittests.databinding.LayoutItemCommitBinding
-import com.griddynamics.unittests.domain.model.RepoCommit
+import com.griddynamics.unittests.domain.model.Commit
 
 class RepoCommitAdapter(
-) : ListAdapter<RepoCommit, RepoCommitViewHolder>(REPO_COMMIT_COMPARATOR) {
+) : ListAdapter<Commit, RepoCommitViewHolder>(REPO_COMMIT_COMPARATOR) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RepoCommitViewHolder {
         val binding = LayoutItemCommitBinding.inflate(
@@ -24,12 +24,12 @@ class RepoCommitAdapter(
 
     companion object {
 
-        private val REPO_COMMIT_COMPARATOR = object : DiffUtil.ItemCallback<RepoCommit>() {
-            override fun areItemsTheSame(oldItem: RepoCommit, newItem: RepoCommit): Boolean {
+        private val REPO_COMMIT_COMPARATOR = object : DiffUtil.ItemCallback<Commit>() {
+            override fun areItemsTheSame(oldItem: Commit, newItem: Commit): Boolean {
                 return oldItem.sha == newItem.sha
             }
 
-            override fun areContentsTheSame(oldItem: RepoCommit, newItem: RepoCommit): Boolean {
+            override fun areContentsTheSame(oldItem: Commit, newItem: Commit): Boolean {
                 return oldItem == newItem
             }
         }

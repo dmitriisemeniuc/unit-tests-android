@@ -6,13 +6,13 @@ import com.griddynamics.unittests.common.net.ApiResponse
 import com.griddynamics.unittests.common.net.NetworkFailure
 import com.griddynamics.unittests.common.net.NotFoundException
 import com.griddynamics.unittests.common.net.Result
-import com.griddynamics.unittests.data.api.ReposApi
+import com.griddynamics.unittests.data.api.GitHubApi
 import com.griddynamics.unittests.data.api.model.response.RepoResponse
 import com.griddynamics.unittests.data.db.dao.ReposDao
-import com.griddynamics.unittests.data.db.entities.ReposEntity
+import com.griddynamics.unittests.data.db.entities.RepoEntity
 import com.griddynamics.unittests.data.source.local.ReposLocalDataSource
 import com.griddynamics.unittests.data.source.local.ReposLocalDataSourceImpl
-import com.griddynamics.unittests.data.source.mapper.ReposMapper
+import com.griddynamics.unittests.data.source.mapper.RepoMapper
 import com.griddynamics.unittests.data.source.remote.ReposRemoteDataSource
 import com.griddynamics.unittests.data.source.remote.ReposRemoteDataSourceImpl
 import com.griddynamics.unittests.domain.model.Repo
@@ -52,13 +52,13 @@ class ReposRepositoryImplTest {
     private var mockContext = mockk<Context>(relaxed = true)
     private var mockReposDao = mockk<ReposDao>()
     private lateinit var reposLocalDataSource: ReposLocalDataSource
-    private var mockReposApi = mockk<ReposApi>()
+    private var mockReposApi = mockk<GitHubApi>()
     private lateinit var reposRemoteDataSource: ReposRemoteDataSource
-    private var reposMapper = ReposMapper()
+    private var reposMapper = RepoMapper()
     private var mockCacheTimeLimiter = mockk<CacheTimeLimiter<String>>()
     private lateinit var mockedDomainModelsData: List<Repo>
     private lateinit var mockedApiResponseData: List<RepoResponse>
-    private lateinit var mockedDbModelsData: List<ReposEntity>
+    private lateinit var mockedDbModelsData: List<RepoEntity>
 
     // Class under test
     private lateinit var repository: ReposRepositoryImpl
@@ -73,7 +73,7 @@ class ReposRepositoryImplTest {
             reposRemoteDataSource = reposRemoteDataSource,
             reposLocalDataSource = reposLocalDataSource,
             reposMapper = reposMapper,
-            repoListCacheTimeLimiter = mockCacheTimeLimiter,
+            cacheTimeLimiter = mockCacheTimeLimiter,
             dispatcher = testDispatcher
         )
         coEvery { mockReposDao.insertAll(any()) } just Runs

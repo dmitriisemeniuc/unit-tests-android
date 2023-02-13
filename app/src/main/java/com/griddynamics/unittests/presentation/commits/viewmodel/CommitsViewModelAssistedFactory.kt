@@ -4,6 +4,6 @@ import androidx.savedstate.SavedStateRegistryOwner
 import dagger.assisted.AssistedFactory
 
 @AssistedFactory
-interface RepoCommitsViewModelAssistedFactory {
-    fun create(owner: SavedStateRegistryOwner): RepoCommitsViewModelFactory
+interface CommitsViewModelAssistedFactory {
+    fun create(owner: SavedStateRegistryOwner): CommitsViewModelFactory
 }

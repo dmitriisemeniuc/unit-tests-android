@@ -15,25 +15,25 @@ import com.griddynamics.unittests.common.extensions.dpToPixel
 import com.griddynamics.unittests.common.net.NetworkFailure
 import com.griddynamics.unittests.common.net.NotFoundException
 import com.griddynamics.unittests.common.net.Result
-import com.griddynamics.unittests.databinding.FragmentRepoCommitsBinding
-import com.griddynamics.unittests.domain.model.RepoCommit
+import com.griddynamics.unittests.databinding.FragmentCommitsBinding
+import com.griddynamics.unittests.domain.model.Commit
 import com.griddynamics.unittests.presentation.commits.adapter.RepoCommitAdapter
-import com.griddynamics.unittests.presentation.commits.viewmodel.RepoCommitsViewModel
-import com.griddynamics.unittests.presentation.commits.viewmodel.RepoCommitsViewModelAssistedFactory
+import com.griddynamics.unittests.presentation.commits.viewmodel.CommitsViewModel
+import com.griddynamics.unittests.presentation.commits.viewmodel.CommitsViewModelAssistedFactory
 import com.griddynamics.unittests.presentation.extensions.showToast
 import com.griddynamics.unittests.presentation.util.ItemOffsetDecoration
 import retrofit2.HttpException
 import javax.inject.Inject
 
-class RepoCommitsFragment : Fragment() {
+class CommitsFragment : Fragment() {
 
-    private var _binding: FragmentRepoCommitsBinding? = null
+    private var _binding: FragmentCommitsBinding? = null
     private val binding get() = _binding!!
 
     @Inject
-    lateinit var assistedFactory: RepoCommitsViewModelAssistedFactory
+    lateinit var assistedFactory: CommitsViewModelAssistedFactory
 
-    private val viewModel: RepoCommitsViewModel by viewModels {
+    private val viewModel: CommitsViewModel by viewModels {
         assistedFactory.create(this)
     }
 
@@ -44,14 +44,14 @@ class RepoCommitsFragment : Fragment() {
         super.onAttach(context)
     }
 
-    private val params by navArgs<RepoCommitsFragmentArgs>()
+    private val params by navArgs<CommitsFragmentArgs>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentRepoCommitsBinding.inflate(inflater, container, false)
+        _binding = FragmentCommitsBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -95,7 +95,7 @@ class RepoCommitsFragment : Fragment() {
         }
     }
 
-    private fun onContentLoaded(data: List<RepoCommit>) {
+    private fun onContentLoaded(data: List<Commit>) {
         hideLoadingView()
         if (data.isEmpty()) {
             showNoContentFound()
@@ -123,7 +123,7 @@ class RepoCommitsFragment : Fragment() {
         binding.tvNoContentFound.isVisible = false
     }
 
-    private fun showContent(data: List<RepoCommit>) {
+    private fun showContent(data: List<Commit>) {
         commitsAdapter.submitList(data)
     }
 

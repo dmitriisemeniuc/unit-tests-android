@@ -4,7 +4,7 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
 import com.griddynamics.unittests.data.db.AppDatabase
-import com.griddynamics.unittests.data.db.entities.ReposEntity
+import com.griddynamics.unittests.data.db.entities.RepoEntity
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.runBlocking
 import org.hamcrest.CoreMatchers
@@ -50,14 +50,14 @@ class ReposLocalDataSourceImplTest {
     fun saveRepoAndRetrieveRepo() = runBlocking {
         // given - A new repo saved in the database.
         val repo =
-            ReposEntity(ReposEntity.ID, ReposEntity.NAME, ReposEntity.DESCRIPTION, ReposEntity.USER)
+            RepoEntity(RepoEntity.ID, RepoEntity.NAME, RepoEntity.DESCRIPTION, RepoEntity.USER)
         localDataSource.saveRepo(repo)
 
         // when  - Repo retrieved by ID.
         val loaded = localDataSource.getRepoById(repo.id)
 
         // then - The loaded data contains the expected values.
-        MatcherAssert.assertThat(loaded as ReposEntity, CoreMatchers.notNullValue())
+        MatcherAssert.assertThat(loaded as RepoEntity, CoreMatchers.notNullValue())
         MatcherAssert.assertThat(loaded.id, Is.`is`(repo.id))
         MatcherAssert.assertThat(loaded.name, Is.`is`(repo.name))
         MatcherAssert.assertThat(loaded.description, Is.`is`(repo.description))
@@ -68,7 +68,7 @@ class ReposLocalDataSourceImplTest {
     fun saveAndUpdateAndRetrieveRepo() = runBlocking {
         // given - A new repo saved in the database.
         val repo =
-            ReposEntity(ReposEntity.ID, ReposEntity.NAME, ReposEntity.DESCRIPTION, ReposEntity.USER)
+            RepoEntity(RepoEntity.ID, RepoEntity.NAME, RepoEntity.DESCRIPTION, RepoEntity.USER)
         localDataSource.saveRepo(repo)
 
         // Update the Repo
@@ -82,7 +82,7 @@ class ReposLocalDataSourceImplTest {
         val loaded = localDataSource.getRepoById(repo.id)
 
         // then - The loaded data contains the expected values.
-        MatcherAssert.assertThat(loaded as ReposEntity, CoreMatchers.notNullValue())
+        MatcherAssert.assertThat(loaded as RepoEntity, CoreMatchers.notNullValue())
         MatcherAssert.assertThat(loaded.id, Is.`is`(repo.id))
         MatcherAssert.assertThat(loaded.name, Is.`is`(repo.name))
         MatcherAssert.assertThat(loaded.description, Is.`is`(repo.description))

@@ -2,7 +2,7 @@ package com.griddynamics.unittests.data.source.mapper
 
 import com.griddynamics.unittests.data.api.model.Owner
 import com.griddynamics.unittests.data.api.model.response.RepoResponse
-import com.griddynamics.unittests.data.db.entities.ReposEntity
+import com.griddynamics.unittests.data.db.entities.RepoEntity
 import com.griddynamics.unittests.domain.model.Repo
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.Before
@@ -23,11 +23,11 @@ private const val FAKE_REPO_RESPONSE_FULL_NAME = "Elon Musk"
 
 class ReposMapperTest {
 
-    private lateinit var mapper: ReposMapper
+    private lateinit var mapper: RepoMapper
 
     @Before
     fun setup() {
-        mapper = ReposMapper()
+        mapper = RepoMapper()
     }
 
     @Test
@@ -36,7 +36,7 @@ class ReposMapperTest {
         val repo = createFakeRepo()
 
         // when
-        val entity: ReposEntity = mapper.mapDomainToStorage(repo)
+        val entity: RepoEntity = mapper.mapDomainToStorage(repo)
 
         // then
         assertThat(entity.id).describedAs("id").isEqualTo(repo.id)
@@ -84,8 +84,8 @@ class ReposMapperTest {
         )
     }
 
-    private fun createFakeReposEntity(): ReposEntity {
-        return ReposEntity(
+    private fun createFakeReposEntity(): RepoEntity {
+        return RepoEntity(
             id = FAKE_REPO_ID,
             name = FAKE_REPO_NAME,
             description = FAKE_REPO_DESCRIPTION,

@@ -4,7 +4,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity(tableName = "commits")
-data class RepoCommitEntity(
+data class CommitEntity(
     @PrimaryKey
     val id: String,
     val repoId: Long,

@@ -2,10 +2,10 @@ package com.griddynamics.unittests.di
 
 import com.griddynamics.unittests.data.source.remote.ReposRemoteDataSource
 import com.griddynamics.unittests.data.source.remote.ReposRemoteDataSourceImpl
-import com.griddynamics.unittests.data.api.ReposApi
+import com.griddynamics.unittests.data.api.GitHubApi
 import com.griddynamics.unittests.data.api.helper.RetrofitHelper
 import com.griddynamics.unittests.data.source.remote.RepoCommitsRemoDataSourceImpl
-import com.griddynamics.unittests.data.source.remote.RepoCommitsRemoteDataSource
+import com.griddynamics.unittests.data.source.remote.CommitsRemoteDataSource
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
@@ -19,21 +19,21 @@ class ApiModule {
     }
 
     @Provides
-    fun providesReposApi(okHttpClient: OkHttpClient): ReposApi {
+    fun providesReposApi(okHttpClient: OkHttpClient): GitHubApi {
         return RetrofitHelper.create(
-            endpoint = ReposApi::class.java,
+            endpoint = GitHubApi::class.java,
             okHttpClient = okHttpClient,
-            baseUrl = ReposApi.BASE_URL
+            baseUrl = GitHubApi.BASE_URL
         )
     }
 
     @Provides
-    fun providesReposRemoteDataSource(api: ReposApi): ReposRemoteDataSource {
+    fun providesReposRemoteDataSource(api: GitHubApi): ReposRemoteDataSource {
         return ReposRemoteDataSourceImpl(api)
     }
 
     @Provides
-    fun providesRepoCommitsRemoteDataSource(api: ReposApi): RepoCommitsRemoteDataSource {
+    fun providesRepoCommitsRemoteDataSource(api: GitHubApi): CommitsRemoteDataSource {
         return RepoCommitsRemoDataSourceImpl(api)
     }
 }

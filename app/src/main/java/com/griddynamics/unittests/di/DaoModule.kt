@@ -1,7 +1,7 @@
 package com.griddynamics.unittests.di
 
 import com.griddynamics.unittests.data.db.AppDatabase
-import com.griddynamics.unittests.data.db.dao.RepoCommitDao
+import com.griddynamics.unittests.data.db.dao.CommitsDao
 import com.griddynamics.unittests.data.db.dao.ReposDao
 import dagger.Module
 import dagger.Provides
@@ -15,7 +15,7 @@ class DaoModule {
     }
 
     @Provides
-    fun providesRepoCommitDao(appDatabase: AppDatabase): RepoCommitDao {
+    fun providesCommitsDao(appDatabase: AppDatabase): CommitsDao {
         return appDatabase.getRepoCommitDao()
     }
 }

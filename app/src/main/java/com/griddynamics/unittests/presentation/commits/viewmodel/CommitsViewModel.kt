@@ -4,12 +4,12 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.switchMap
-import com.griddynamics.unittests.data.api.model.request.RepoCommitsParams
-import com.griddynamics.unittests.domain.usecase.GetRepoCommitsUseCase
+import com.griddynamics.unittests.data.api.model.request.CommitsParams
+import com.griddynamics.unittests.domain.usecase.GetCommitsUseCase
 
-class RepoCommitsViewModel(
+class CommitsViewModel(
     application: Application,
-    private val getRepoCommitsUseCase: GetRepoCommitsUseCase,
+    private val getRepoCommitsUseCase: GetCommitsUseCase,
     private val savedStateHandle: SavedStateHandle
 ) : AndroidViewModel(application) {
 
@@ -17,7 +17,7 @@ class RepoCommitsViewModel(
         savedStateHandle.getLiveData<Triple<String, String, Long>>(KEY_QUERY)
             .switchMap { (owner, repo, repoId) ->
                 getRepoCommitsUseCase.execute(
-                    RepoCommitsParams(
+                    CommitsParams(
                         user = owner,
                         repo = repo,
                         repoId = repoId

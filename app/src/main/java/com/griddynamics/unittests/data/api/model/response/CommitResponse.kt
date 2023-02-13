@@ -3,7 +3,7 @@ package com.griddynamics.unittests.data.api.model.response
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class RepoCommitterResponse(
-    val login: String? = null,
-    val date: String? = null
+data class CommitResponse(
+    val message: String? = null,
+    val committer: CommitterResponse? = null
 )

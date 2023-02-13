@@ -5,13 +5,13 @@ import androidx.lifecycle.AbstractSavedStateViewModelFactory
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.savedstate.SavedStateRegistryOwner
-import com.griddynamics.unittests.domain.usecase.GetRepoCommitsUseCase
+import com.griddynamics.unittests.domain.usecase.GetCommitsUseCase
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
 
-class RepoCommitsViewModelFactory @AssistedInject constructor(
+class CommitsViewModelFactory @AssistedInject constructor(
     val application: Application,
-    private val getRepoCommitsUseCase: GetRepoCommitsUseCase,
+    private val getRepoCommitsUseCase: GetCommitsUseCase,
     @Assisted owner: SavedStateRegistryOwner
 ) : AbstractSavedStateViewModelFactory(owner, null) {
 
@@ -21,7 +21,7 @@ class RepoCommitsViewModelFactory @AssistedInject constructor(
         modelClass: Class<T>,
         handle: SavedStateHandle
     ): T {
-        return RepoCommitsViewModel(
+        return CommitsViewModel(
             application = application,
             getRepoCommitsUseCase = getRepoCommitsUseCase,
             savedStateHandle = handle

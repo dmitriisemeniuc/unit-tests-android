@@ -15,7 +15,7 @@ object KotlinConverterFactoryHelper {
 
     @OptIn(ExperimentalSerializationApi::class)
     fun provideKotlinSerialization(): Converter.Factory {
-        val contentType = "applocation/json".toMediaType()
+        val contentType = "application/json".toMediaType()
         return json.asConverterFactory(contentType)
     }
 }

@@ -4,7 +4,7 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
 import com.griddynamics.unittests.data.db.AppDatabase
-import com.griddynamics.unittests.data.db.entities.ReposEntity
+import com.griddynamics.unittests.data.db.entities.RepoEntity
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.runBlocking
 import org.hamcrest.CoreMatchers
@@ -41,14 +41,14 @@ class ReposDaoTest {
     fun insertRepoAndGetById() = runBlocking {
         // given - Insert a repo.
         val repo =
-            ReposEntity(ReposEntity.ID, ReposEntity.NAME, ReposEntity.DESCRIPTION, ReposEntity.USER)
+            RepoEntity(RepoEntity.ID, RepoEntity.NAME, RepoEntity.DESCRIPTION, RepoEntity.USER)
         database.getReposDao().insert(repo)
 
         // when - Get the repo by id from the database.
         val loaded = database.getReposDao().findById(repo.id)
 
         // then - The loaded data contains the expected values.
-        MatcherAssert.assertThat(loaded as ReposEntity, CoreMatchers.notNullValue())
+        MatcherAssert.assertThat(loaded as RepoEntity, CoreMatchers.notNullValue())
         MatcherAssert.assertThat(loaded.id, `is`(repo.id))
         MatcherAssert.assertThat(loaded.name, `is`(repo.name))
         MatcherAssert.assertThat(loaded.description, `is`(repo.description))
@@ -59,7 +59,7 @@ class ReposDaoTest {
     fun updateRepoAndGetById() = runBlocking {
         // given - Insert a repo.
         val repo =
-            ReposEntity(ReposEntity.ID, ReposEntity.NAME, ReposEntity.DESCRIPTION, ReposEntity.USER)
+            RepoEntity(RepoEntity.ID, RepoEntity.NAME, RepoEntity.DESCRIPTION, RepoEntity.USER)
         database.getReposDao().insert(repo)
         // Update the Repo
         repo.apply {
@@ -72,7 +72,7 @@ class ReposDaoTest {
         val loaded = database.getReposDao().findById(repo.id)
 
         // then - The loaded data contains the expected values.
-        MatcherAssert.assertThat(loaded as ReposEntity, CoreMatchers.notNullValue())
+        MatcherAssert.assertThat(loaded as RepoEntity, CoreMatchers.notNullValue())
         MatcherAssert.assertThat(loaded.id, `is`(repo.id))
         MatcherAssert.assertThat(loaded.name, `is`(repo.name))
         MatcherAssert.assertThat(loaded.description, `is`(repo.description))

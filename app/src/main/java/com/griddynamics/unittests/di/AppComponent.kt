@@ -1,6 +1,6 @@
 package com.griddynamics.unittests.di
 
-import com.griddynamics.unittests.presentation.commits.RepoCommitsFragment
+import com.griddynamics.unittests.presentation.commits.CommitsFragment
 import com.griddynamics.unittests.presentation.search.SearchReposFragment
 import dagger.Component
 
@@ -8,5 +8,5 @@ import dagger.Component
     ApiModule::class, DomainModule::class, DataModule::class])
 interface AppComponent {
     fun inject(searchFragment: SearchReposFragment)
-    fun inject(repoCommitsFragment: RepoCommitsFragment)
+    fun inject(repoCommitsFragment: CommitsFragment)
 }

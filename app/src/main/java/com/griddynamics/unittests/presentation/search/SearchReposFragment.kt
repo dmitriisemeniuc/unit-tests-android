@@ -6,6 +6,7 @@ import android.text.Editable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -13,12 +14,14 @@ import androidx.navigation.fragment.findNavController
 import com.griddynamics.unittests.R
 import com.griddynamics.unittests.app.App
 import com.griddynamics.unittests.common.extensions.dpToPixel
+import com.griddynamics.unittests.common.extensions.isTrue
 import com.griddynamics.unittests.common.net.NetworkFailure
 import com.griddynamics.unittests.common.net.NotFoundException
 import com.griddynamics.unittests.common.net.Result
 import com.griddynamics.unittests.databinding.FragmentSearchReposBinding
 import com.griddynamics.unittests.domain.model.Repo
 import com.griddynamics.unittests.presentation.extensions.hideKeyboard
+import com.griddynamics.unittests.presentation.extensions.isNetworkAvailable
 import com.griddynamics.unittests.presentation.extensions.showToast
 import com.griddynamics.unittests.presentation.search.adapter.ReposAdapter
 import com.griddynamics.unittests.presentation.search.viewmodel.SearchReposViewModel
@@ -187,11 +190,16 @@ class SearchReposFragment : Fragment() {
     }
 
     private fun openRepo(repo: Repo) {
-        val action = SearchReposFragmentDirections.showRepo(
-            owner = repo.user,
-            repo = repo.name,
-            repoId = repo.id
-        )
-        findNavController().navigate(action)
+        if (context?.isNetworkAvailable().isTrue()) {
+            val action = SearchReposFragmentDirections.showRepo(
+                owner = repo.user,
+                repo = repo.name,
+                repoId = repo.id
+            )
+            findNavController().navigate(action)
+        } else {
+            Toast.makeText(context, getString(R.string.no_internet_connection), Toast.LENGTH_SHORT)
+                .show()
+        }
     }
 }

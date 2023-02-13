@@ -1,6 +1,6 @@
 package com.griddynamics.unittests.domain.model
 
-data class RepoCommit(
+data class Commit(
     val sha: String,
     val committer: String,
     val timestamp: Long,

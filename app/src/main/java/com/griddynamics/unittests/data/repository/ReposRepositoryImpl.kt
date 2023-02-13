@@ -9,7 +9,7 @@ import com.griddynamics.unittests.common.net.NetworkFailure
 import com.griddynamics.unittests.common.net.NotFoundException
 import com.griddynamics.unittests.data.source.local.ReposLocalDataSource
 import com.griddynamics.unittests.data.source.remote.ReposRemoteDataSource
-import com.griddynamics.unittests.data.source.mapper.ReposMapper
+import com.griddynamics.unittests.data.source.mapper.RepoMapper
 import com.griddynamics.unittests.domain.model.Repo
 import com.griddynamics.unittests.domain.repository.ReposRepository
 import com.griddynamics.unittests.common.net.Result
@@ -22,8 +22,8 @@ class ReposRepositoryImpl(
     private val context: Context,
     private val reposRemoteDataSource: ReposRemoteDataSource,
     private val reposLocalDataSource: ReposLocalDataSource,
-    private val reposMapper: ReposMapper,
-    private val repoListCacheTimeLimiter: CacheTimeLimiter<String> = CacheTimeLimiter(
+    private val reposMapper: RepoMapper,
+    private val cacheTimeLimiter: CacheTimeLimiter<String> = CacheTimeLimiter(
         10,
         TimeUnit.MINUTES
     ),
@@ -60,7 +60,7 @@ class ReposRepositoryImpl(
 
     @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
     fun shouldFetch(user: String, data: List<Repo>?): Boolean {
-        return data == null || data.isEmpty() || repoListCacheTimeLimiter.shouldFetch(user)
+        return data == null || data.isEmpty() || cacheTimeLimiter.shouldFetch(user)
     }
 
     @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
@@ -93,7 +93,7 @@ class ReposRepositoryImpl(
     }
 
     private fun onFetchFailed(user: String) {
-        repoListCacheTimeLimiter.reset(user)
+        cacheTimeLimiter.reset(user)
     }
 
     @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)

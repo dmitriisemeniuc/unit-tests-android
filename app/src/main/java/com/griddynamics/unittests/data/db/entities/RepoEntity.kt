@@ -4,7 +4,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity(tableName = "repos")
-data class ReposEntity(
+data class RepoEntity(
     @PrimaryKey
     val id: Long,
     var name: String,

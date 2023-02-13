@@ -2,7 +2,7 @@ package com.griddynamics.unittests.util
 
 import com.griddynamics.unittests.data.api.model.Owner
 import com.griddynamics.unittests.data.api.model.response.RepoResponse
-import com.griddynamics.unittests.data.db.entities.ReposEntity
+import com.griddynamics.unittests.data.db.entities.RepoEntity
 import com.griddynamics.unittests.domain.model.Repo
 import io.mockk.every
 import io.mockk.mockk
@@ -35,9 +35,9 @@ object TestUtil {
         }
     }
 
-    fun generateReposDbModels(owner: String, count: Int = 10): List<ReposEntity> {
+    fun generateReposDbModels(owner: String, count: Int = 10): List<RepoEntity> {
         return (1 until count + 1).map { i ->
-            ReposEntity(
+            RepoEntity(
                 id = i.toLong(),
                 name = "Repo: $i",
                 description = "Description: $i",

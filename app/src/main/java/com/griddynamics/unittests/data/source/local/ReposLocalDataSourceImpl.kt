@@ -1,29 +1,29 @@
 package com.griddynamics.unittests.data.source.local
 
 import com.griddynamics.unittests.data.db.dao.ReposDao
-import com.griddynamics.unittests.data.db.entities.ReposEntity
+import com.griddynamics.unittests.data.db.entities.RepoEntity
 
 class ReposLocalDataSourceImpl(
     private val reposDao: ReposDao
 ) : ReposLocalDataSource {
 
-    override suspend fun getReposByUser(user: String): List<ReposEntity> {
+    override suspend fun getReposByUser(user: String): List<RepoEntity> {
         return reposDao.findByUser(user).orEmpty()
     }
 
-    override suspend fun getRepoById(id: Long): ReposEntity? {
+    override suspend fun getRepoById(id: Long): RepoEntity? {
         return reposDao.findById(id)
     }
 
-    override suspend fun saveRepos(repos: List<ReposEntity>) {
+    override suspend fun saveRepos(repos: List<RepoEntity>) {
         reposDao.insertAll(repos)
     }
 
-    override suspend fun saveRepo(repo: ReposEntity) {
+    override suspend fun saveRepo(repo: RepoEntity) {
         reposDao.insert(repo)
     }
 
-    override suspend fun updateRepo(repo: ReposEntity) {
+    override suspend fun updateRepo(repo: RepoEntity) {
         reposDao.update(repo)
     }
 }

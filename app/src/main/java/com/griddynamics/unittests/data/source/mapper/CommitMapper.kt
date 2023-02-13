@@ -1,15 +1,15 @@
 package com.griddynamics.unittests.data.source.mapper
 
 import com.griddynamics.unittests.common.extensions.orZero
-import com.griddynamics.unittests.data.api.model.response.RepoCommitsResponse
-import com.griddynamics.unittests.data.db.entities.RepoCommitEntity
-import com.griddynamics.unittests.domain.model.RepoCommit
+import com.griddynamics.unittests.data.api.model.response.CommitsResponse
+import com.griddynamics.unittests.data.db.entities.CommitEntity
+import com.griddynamics.unittests.domain.model.Commit
 import java.time.Instant
 
-class RepoCommitMapper {
+class CommitMapper {
 
-    fun mapDomainToStorage(commit: RepoCommit): RepoCommitEntity {
-        return RepoCommitEntity(
+    fun mapDomainToStorage(commit: Commit): CommitEntity {
+        return CommitEntity(
             id = commit.sha,
             committer = commit.committer,
             timestamp = commit.timestamp,
@@ -18,8 +18,8 @@ class RepoCommitMapper {
         )
     }
 
-    fun mapStorageToDomain(commit: RepoCommitEntity): RepoCommit {
-        return RepoCommit(
+    fun mapStorageToDomain(commit: CommitEntity): Commit {
+        return Commit(
             sha = commit.id,
             repoId = commit.repoId,
             committer = commit.committer,
@@ -28,8 +28,8 @@ class RepoCommitMapper {
         )
     }
 
-    fun mapApiToDomain(response: RepoCommitsResponse, repoId: Long): RepoCommit {
-        return RepoCommit(
+    fun mapApiToDomain(response: CommitsResponse, repoId: Long): Commit {
+        return Commit(
             sha = response.sha.orEmpty(),
             committer = response.committer?.login.orEmpty(),
             timestamp = Instant.parse(response.commit?.committer?.date).toEpochMilli().orZero(),
