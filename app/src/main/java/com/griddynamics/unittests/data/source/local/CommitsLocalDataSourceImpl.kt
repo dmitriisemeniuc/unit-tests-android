@@ -11,7 +11,7 @@ class CommitsLocalDataSourceImpl(
         return commitDao.findByRepoId(repo).orEmpty()
     }
 
-    override suspend fun getCommitById(id: Long): CommitEntity? {
+    override suspend fun getCommitById(id: String): CommitEntity? {
         return commitDao.findById(id)
     }
 

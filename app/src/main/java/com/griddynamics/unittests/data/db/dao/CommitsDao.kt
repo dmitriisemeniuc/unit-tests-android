@@ -19,5 +19,5 @@ interface CommitsDao {
     suspend fun findByRepoId(repoId: Long): List<CommitEntity>?
 
     @Query("SELECT * FROM commits WHERE id = :id")
-    suspend fun findById(id: Long): CommitEntity?
+    suspend fun findById(id: String): CommitEntity?
 }

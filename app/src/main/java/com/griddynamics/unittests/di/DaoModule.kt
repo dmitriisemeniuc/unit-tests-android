@@ -16,6 +16,6 @@ class DaoModule {
 
     @Provides
     fun providesCommitsDao(appDatabase: AppDatabase): CommitsDao {
-        return appDatabase.getRepoCommitDao()
+        return appDatabase.getCommitsDao()
     }
 }

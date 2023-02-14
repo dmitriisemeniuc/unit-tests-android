@@ -12,7 +12,7 @@ abstract class AppDatabase : RoomDatabase() {
 
     abstract fun getReposDao() : ReposDao
 
-    abstract fun getRepoCommitDao() : CommitsDao
+    abstract fun getCommitsDao() : CommitsDao
 
     companion object {
         const val DATABASE_NAME = "database-app"
