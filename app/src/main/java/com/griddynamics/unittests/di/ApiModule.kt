@@ -4,7 +4,7 @@ import com.griddynamics.unittests.data.source.remote.ReposRemoteDataSource
 import com.griddynamics.unittests.data.source.remote.ReposRemoteDataSourceImpl
 import com.griddynamics.unittests.data.api.GitHubApi
 import com.griddynamics.unittests.data.api.helper.RetrofitHelper
-import com.griddynamics.unittests.data.source.remote.RepoCommitsRemoDataSourceImpl
+import com.griddynamics.unittests.data.source.remote.CommitsRemoteDataSourceImpl
 import com.griddynamics.unittests.data.source.remote.CommitsRemoteDataSource
 import dagger.Module
 import dagger.Provides
@@ -34,6 +34,6 @@ class ApiModule {
 
     @Provides
     fun providesRepoCommitsRemoteDataSource(api: GitHubApi): CommitsRemoteDataSource {
-        return RepoCommitsRemoDataSourceImpl(api)
+        return CommitsRemoteDataSourceImpl(api)
     }
 }

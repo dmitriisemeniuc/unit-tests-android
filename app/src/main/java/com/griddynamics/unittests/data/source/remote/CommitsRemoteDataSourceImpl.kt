@@ -3,7 +3,7 @@ package com.griddynamics.unittests.data.source.remote
 import com.griddynamics.unittests.data.api.GitHubApi
 import com.griddynamics.unittests.data.api.model.response.CommitsResponse
 
-class RepoCommitsRemoDataSourceImpl(private val reposApi: GitHubApi) : CommitsRemoteDataSource {
+class CommitsRemoteDataSourceImpl(private val reposApi: GitHubApi) : CommitsRemoteDataSource {
 
     override suspend fun getCommitsByUserAndRepo(
         user: String,

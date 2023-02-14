@@ -52,7 +52,7 @@ class ReposRepositoryImplTest {
     private var mockContext = mockk<Context>(relaxed = true)
     private var mockReposDao = mockk<ReposDao>()
     private lateinit var reposLocalDataSource: ReposLocalDataSource
-    private var mockReposApi = mockk<GitHubApi>()
+    private var mockGitHubApi = mockk<GitHubApi>()
     private lateinit var reposRemoteDataSource: ReposRemoteDataSource
     private var reposMapper = RepoMapper()
     private var mockCacheTimeLimiter = mockk<CacheTimeLimiter<String>>()
@@ -66,7 +66,7 @@ class ReposRepositoryImplTest {
     @Before
     fun setup() {
         Dispatchers.setMain(testDispatcher)
-        reposRemoteDataSource = ReposRemoteDataSourceImpl(mockReposApi)
+        reposRemoteDataSource = ReposRemoteDataSourceImpl(mockGitHubApi)
         reposLocalDataSource = ReposLocalDataSourceImpl(mockReposDao)
         repository = ReposRepositoryImpl(
             context = mockContext,
@@ -91,7 +91,7 @@ class ReposRepositoryImplTest {
     fun `loadDataFromNetwork Success Test`() = testScope.runTest {
         // given
         every { mockContext.isNetworkAvailable() } returns true
-        coEvery { mockReposApi.getReposByUser(USER) } returns mockedApiResponseData
+        coEvery { mockGitHubApi.getReposByUser(USER) } returns mockedApiResponseData
         val expected = mockedDomainModelsData
         // when
         val actual = repository.loadDataFromNetwork(USER)
@@ -115,7 +115,7 @@ class ReposRepositoryImplTest {
     fun `loadDataFromNetwork Returns Server Error Test`() = testScope.runTest {
         // given
         every { mockContext.isNetworkAvailable() } returns true
-        coEvery { mockReposApi.getReposByUser(USER) } throws IOException("Server Error")
+        coEvery { mockGitHubApi.getReposByUser(USER) } throws IOException("Server Error")
         // when
         val actual = repository.loadDataFromNetwork(USER)
         // then
@@ -126,7 +126,7 @@ class ReposRepositoryImplTest {
     fun `loadDataFromNetwork Returns NotFoundException Test`() = testScope.runTest {
         // given
         every { mockContext.isNetworkAvailable() } returns true
-        coEvery { mockReposApi.getReposByUser(USER) } returns emptyList()
+        coEvery { mockGitHubApi.getReposByUser(USER) } returns emptyList()
         // when
         val actual = repository.loadDataFromNetwork(USER)
         // then
@@ -179,7 +179,7 @@ class ReposRepositoryImplTest {
         coEvery { mockReposDao.findByUser(USER) } returns emptyList()
         every { mockCacheTimeLimiter.shouldFetch(key = any()) } returns true
         coEvery { mockReposDao.findByUser(USER) } returns mockedDbModelsData
-        coEvery { mockReposApi.getReposByUser(USER) } returns mockedApiResponseData
+        coEvery { mockGitHubApi.getReposByUser(USER) } returns mockedApiResponseData
         val expectedData = mockedDomainModelsData
         // when
         repository.getReposByUser(USER).captureValues {
@@ -198,7 +198,7 @@ class ReposRepositoryImplTest {
         coEvery { mockReposDao.findByUser(user = USER) } returns emptyList()
         every { mockCacheTimeLimiter.shouldFetch(key = any()) } returns true
         every { mockCacheTimeLimiter.reset(key = any()) } just Runs
-        coEvery { mockReposApi.getReposByUser(user = USER) } throws expectedError
+        coEvery { mockGitHubApi.getReposByUser(user = USER) } throws expectedError
         // when
         repository.getReposByUser(user = USER).captureValues {
             // then
