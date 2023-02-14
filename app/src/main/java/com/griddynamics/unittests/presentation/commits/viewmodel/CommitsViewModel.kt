@@ -9,14 +9,14 @@ import com.griddynamics.unittests.domain.usecase.GetCommitsUseCase
 
 class CommitsViewModel(
     application: Application,
-    private val getRepoCommitsUseCase: GetCommitsUseCase,
+    private val getCommitsUseCase: GetCommitsUseCase,
     private val savedStateHandle: SavedStateHandle
 ) : AndroidViewModel(application) {
 
     val commits =
         savedStateHandle.getLiveData<Triple<String, String, Long>>(KEY_QUERY)
             .switchMap { (owner, repo, repoId) ->
-                getRepoCommitsUseCase.execute(
+                getCommitsUseCase.execute(
                     CommitsParams(
                         user = owner,
                         repo = repo,

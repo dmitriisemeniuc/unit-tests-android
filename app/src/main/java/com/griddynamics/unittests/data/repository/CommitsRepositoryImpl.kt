@@ -31,12 +31,6 @@ class CommitsRepositoryImpl(
     private val dispatcher: CoroutineDispatcher
 ) : CommitsRepository {
 
-    companion object {
-        const val USER = "test_user"
-        const val REPO_ID = 100L
-        const val REPO = "test_repo"
-    }
-
     override fun getCommitsByOwnerAndRepo(
         params: CommitsParams
     ): LiveData<Result<List<Commit>>> = liveData(dispatcher) {

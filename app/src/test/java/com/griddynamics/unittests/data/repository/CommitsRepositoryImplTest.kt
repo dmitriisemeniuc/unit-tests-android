@@ -32,6 +32,12 @@ import java.io.IOException
 @ExperimentalCoroutinesApi
 class CommitsRepositoryImplTest {
 
+    companion object {
+        const val USER = "test_user"
+        const val REPO_ID = 100L
+        const val REPO = "test_repo"
+    }
+
     @get:Rule
     val instantTaskExecutorRule = InstantTaskExecutorRule()
 
@@ -56,10 +62,7 @@ class CommitsRepositoryImplTest {
     @Before
     fun setup() {
         Dispatchers.setMain(testDispatcher)
-        params = CommitsParams(
-            user = CommitsRepositoryImpl.USER, repo = CommitsRepositoryImpl.REPO,
-            repoId = CommitsRepositoryImpl.REPO_ID
-        )
+        params = CommitsParams(user = USER, repo = REPO, repoId = REPO_ID)
         commitsRemoteDataSource = CommitsRemoteDataSourceImpl(mockGitHubApi)
         commitsLocalDataSource = CommitsLocalDataSourceImpl(mockCommitsDao)
         repository = CommitsRepositoryImpl(

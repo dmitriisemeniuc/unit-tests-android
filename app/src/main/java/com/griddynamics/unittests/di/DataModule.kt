@@ -2,14 +2,14 @@ package com.griddynamics.unittests.di
 
 import android.content.Context
 import com.griddynamics.unittests.data.db.dao.CommitsDao
-import com.griddynamics.unittests.data.source.local.ReposLocalDataSource
+import com.griddynamics.unittests.data.source.local.CommitsLocalDataSource
 import com.griddynamics.unittests.data.source.local.ReposLocalDataSourceImpl
 import com.griddynamics.unittests.data.db.dao.ReposDao
 import com.griddynamics.unittests.data.repository.CommitsRepositoryImpl
 import com.griddynamics.unittests.data.source.remote.ReposRemoteDataSource
 import com.griddynamics.unittests.data.repository.ReposRepositoryImpl
-import com.griddynamics.unittests.data.source.local.CommitsLocalDataSource
 import com.griddynamics.unittests.data.source.local.CommitsLocalDataSourceImpl
+import com.griddynamics.unittests.data.source.local.ReposLocalDataSource
 import com.griddynamics.unittests.data.source.mapper.CommitMapper
 import com.griddynamics.unittests.data.source.mapper.RepoMapper
 import com.griddynamics.unittests.data.source.remote.CommitsRemoteDataSource

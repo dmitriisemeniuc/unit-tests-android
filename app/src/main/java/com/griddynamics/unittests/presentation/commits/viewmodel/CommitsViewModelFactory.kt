@@ -11,7 +11,7 @@ import dagger.assisted.AssistedInject
 
 class CommitsViewModelFactory @AssistedInject constructor(
     val application: Application,
-    private val getRepoCommitsUseCase: GetCommitsUseCase,
+    private val getCommitsUseCase: GetCommitsUseCase,
     @Assisted owner: SavedStateRegistryOwner
 ) : AbstractSavedStateViewModelFactory(owner, null) {
 
@@ -23,7 +23,7 @@ class CommitsViewModelFactory @AssistedInject constructor(
     ): T {
         return CommitsViewModel(
             application = application,
-            getRepoCommitsUseCase = getRepoCommitsUseCase,
+            getCommitsUseCase = getCommitsUseCase,
             savedStateHandle = handle
         ) as T
     }
