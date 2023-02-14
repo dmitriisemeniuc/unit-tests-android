@@ -39,10 +39,10 @@ class ReposMapperTest {
         val entity: RepoEntity = mapper.mapDomainToStorage(repo)
 
         // then
-        assertThat(entity.id).describedAs("id").isEqualTo(repo.id)
-        assertThat(entity.user).describedAs("user").isEqualTo(repo.user)
-        assertThat(entity.name).describedAs("name").isEqualTo(repo.name)
-        assertThat(entity.description).describedAs("description").isEqualTo(repo.description)
+        assertThat(entity.id).isEqualTo(repo.id)
+        assertThat(entity.user).isEqualTo(repo.user)
+        assertThat(entity.name).isEqualTo(repo.name)
+        assertThat(entity.description).isEqualTo(repo.description)
     }
 
     @Test
@@ -54,10 +54,10 @@ class ReposMapperTest {
         val repo: Repo = mapper.mapStorageToDomain(entity)
 
         // then
-        assertThat(entity.id).describedAs("id").isEqualTo(repo.id)
-        assertThat(entity.user).describedAs("user").isEqualTo(repo.user)
-        assertThat(entity.name).describedAs("name").isEqualTo(repo.name)
-        assertThat(entity.description).describedAs("description").isEqualTo(repo.description)
+        assertThat(entity.id).isEqualTo(repo.id)
+        assertThat(entity.user).isEqualTo(repo.user)
+        assertThat(entity.name).isEqualTo(repo.name)
+        assertThat(entity.description).isEqualTo(repo.description)
     }
 
     @Test
@@ -69,10 +69,10 @@ class ReposMapperTest {
         val repo: Repo = mapper.mapApiToDomain(repoResponse)
 
         // then
-        assertThat(repoResponse.id).describedAs("id").isEqualTo(repo.id)
-        assertThat(repoResponse.owner?.login).describedAs("user").isEqualTo(repo.user)
-        assertThat(repoResponse.name).describedAs("name").isEqualTo(repo.name)
-        assertThat(repoResponse.description).describedAs("description").isEqualTo(repo.description)
+        assertThat(repoResponse.id).isEqualTo(repo.id)
+        assertThat(repoResponse.owner?.login).isEqualTo(repo.user)
+        assertThat(repoResponse.name).isEqualTo(repo.name)
+        assertThat(repoResponse.description).isEqualTo(repo.description)
     }
 
     private fun createFakeRepo(): Repo {
@@ -102,7 +102,6 @@ class ReposMapperTest {
             owner = createFakeOwner()
         )
     }
-
 
     private fun createFakeOwner(): Owner {
         return Owner(

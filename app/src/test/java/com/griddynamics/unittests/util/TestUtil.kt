@@ -106,7 +106,7 @@ object TestUtil {
         }
     }
 
-    private fun String.toTimeStamp(): Long {
+    fun String.toTimeStamp(): Long {
         return Instant.parse(this).toEpochMilli()
     }
 }
