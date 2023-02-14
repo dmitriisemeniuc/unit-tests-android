@@ -80,7 +80,7 @@ object TestUtil {
                 sha = i.toString(),
                 message = "Commit Message: ${i + 1}",
                 committer = committer,
-                timestamp = dates[i].toTimeStamp(),
+                timestamp = toTimeStamp(dates[i]),
                 repoId = repoId
             )
         }
@@ -94,7 +94,7 @@ object TestUtil {
                 repoId = repoId,
                 message = "Commit Message: ${i + 1}",
                 committer = user,
-                timestamp = dates[i].toTimeStamp()
+                timestamp = toTimeStamp(dates[i])
             )
         }
     }
@@ -106,7 +106,7 @@ object TestUtil {
         }
     }
 
-    fun String.toTimeStamp(): Long {
-        return Instant.parse(this).toEpochMilli()
+    fun toTimeStamp(date: String): Long {
+        return Instant.parse(date).toEpochMilli()
     }
 }

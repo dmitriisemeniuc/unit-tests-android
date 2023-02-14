@@ -4,7 +4,8 @@ import com.griddynamics.unittests.data.api.model.Owner
 import com.griddynamics.unittests.data.api.model.response.RepoResponse
 import com.griddynamics.unittests.data.db.entities.RepoEntity
 import com.griddynamics.unittests.domain.model.Repo
-import org.assertj.core.api.Assertions.assertThat
+import org.hamcrest.MatcherAssert.assertThat
+import org.hamcrest.core.Is.`is`
 import org.junit.Before
 import org.junit.Test
 
@@ -39,10 +40,10 @@ class ReposMapperTest {
         val entity: RepoEntity = mapper.mapDomainToStorage(repo)
 
         // then
-        assertThat(entity.id).isEqualTo(repo.id)
-        assertThat(entity.user).isEqualTo(repo.user)
-        assertThat(entity.name).isEqualTo(repo.name)
-        assertThat(entity.description).isEqualTo(repo.description)
+        assertThat(entity.id, `is`(repo.id))
+        assertThat(entity.user, `is`(repo.user))
+        assertThat(entity.name, `is`(repo.name))
+        assertThat(entity.description, `is`(repo.description))
     }
 
     @Test
@@ -54,10 +55,10 @@ class ReposMapperTest {
         val repo: Repo = mapper.mapStorageToDomain(entity)
 
         // then
-        assertThat(entity.id).isEqualTo(repo.id)
-        assertThat(entity.user).isEqualTo(repo.user)
-        assertThat(entity.name).isEqualTo(repo.name)
-        assertThat(entity.description).isEqualTo(repo.description)
+        assertThat(entity.id, `is`(repo.id))
+        assertThat(entity.user, `is`(repo.user))
+        assertThat(entity.name, `is`(repo.name))
+        assertThat(entity.description, `is`(repo.description))
     }
 
     @Test
@@ -69,10 +70,10 @@ class ReposMapperTest {
         val repo: Repo = mapper.mapApiToDomain(repoResponse)
 
         // then
-        assertThat(repoResponse.id).isEqualTo(repo.id)
-        assertThat(repoResponse.owner?.login).isEqualTo(repo.user)
-        assertThat(repoResponse.name).isEqualTo(repo.name)
-        assertThat(repoResponse.description).isEqualTo(repo.description)
+        assertThat(repoResponse.id, `is`(repo.id))
+        assertThat(repoResponse.owner?.login, `is`(repo.user))
+        assertThat(repoResponse.name, `is`(repo.name))
+        assertThat(repoResponse.description, `is`(repo.description))
     }
 
     private fun createFakeRepo(): Repo {

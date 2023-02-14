@@ -28,8 +28,9 @@ import kotlinx.coroutines.test.TestScope
 import kotlinx.coroutines.test.setMain
 import kotlinx.coroutines.test.resetMain
 import kotlinx.coroutines.test.runTest
+import org.hamcrest.MatcherAssert.assertThat
+import org.hamcrest.core.Is.`is`
 import org.junit.After
-import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Rule
 
@@ -97,7 +98,7 @@ class ReposRepositoryImplTest {
         val actual = repository.loadDataFromNetwork(USER)
         // then
         assert(actual is ApiResponse.Success)
-        assertEquals(expected, (actual as ApiResponse.Success).data)
+        assertThat(expected, `is`((actual as ApiResponse.Success).data))
     }
 
     @Test
@@ -143,7 +144,7 @@ class ReposRepositoryImplTest {
         // when
         val actual = repository.loadDataFromDb(USER)
         // then
-        assertEquals(expected, actual)
+        assertThat(expected, `is`(actual))
     }
 
     @Test
@@ -167,8 +168,8 @@ class ReposRepositoryImplTest {
         repository.getReposByUser(USER).captureValues {
             // then
             val expectedData = mockedDomainModelsData
-            assertEquals(values.size, 1)
-            assertEquals(Result.Success(expectedData), values.single())
+            assertThat(values.size, `is`(1))
+            assertThat(Result.Success(expectedData), `is`(values.single()))
         }
     }
 
@@ -184,9 +185,9 @@ class ReposRepositoryImplTest {
         // when
         repository.getReposByUser(USER).captureValues {
             // then
-            assertEquals(values.size, 2)
-            assertEquals(Result.Loading(null), values.first())
-            assertEquals(Result.Success(expectedData), values.last())
+            assertThat(values.size, `is`(2))
+            assertThat(Result.Loading(null), `is`(values.first()))
+            assertThat(Result.Success(expectedData), `is`(values.last()))
         }
     }
 
@@ -202,9 +203,9 @@ class ReposRepositoryImplTest {
         // when
         repository.getReposByUser(user = USER).captureValues {
             // then
-            assertEquals(values.size, 2)
-            assertEquals(Result.Loading(null), values.first())
-            assertEquals(Result.Error<List<Repo>>(expectedError), values.last())
+            assertThat(values.size, `is`(2))
+            assertThat(Result.Loading(null), `is`(values.first()))
+            assertThat(Result.Error(expectedError), `is`(values.last()))
         }
     }
 
@@ -218,7 +219,7 @@ class ReposRepositoryImplTest {
         // when
         repository.getReposByUser(USER).captureValues {
             // then
-            assertEquals(values.size, 2)
+            assertThat(values.size, `is`(2))
             assert(values.first() is Result.Loading)
             assert(values.last() is Result.Error)
             assert((values.last() as Result.Error).error is NetworkFailure)

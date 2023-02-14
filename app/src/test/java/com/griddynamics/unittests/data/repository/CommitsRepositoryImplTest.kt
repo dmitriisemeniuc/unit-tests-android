@@ -26,6 +26,8 @@ import io.mockk.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.*
+import org.hamcrest.core.Is.`is`
+import org.hamcrest.junit.MatcherAssert.assertThat
 import org.junit.*
 import java.io.IOException
 
@@ -101,7 +103,7 @@ class CommitsRepositoryImplTest {
         val actual = repository.loadDataFromNetwork(params)
         // then
         assert(actual is ApiResponse.Success)
-        Assert.assertEquals(expected, (actual as ApiResponse.Success).data)
+        assertThat(expected, `is`((actual as ApiResponse.Success).data))
     }
 
     @Test
@@ -169,8 +171,8 @@ class CommitsRepositoryImplTest {
         repository.getCommitsByOwnerAndRepo(params).captureValues {
             // then
             val expectedData = mockedDomainModelsData
-            Assert.assertEquals(values.size, 1)
-            Assert.assertEquals(Result.Success(expectedData), values.single())
+            assertThat(values.size, `is`(1))
+            assertThat(Result.Success(expectedData), `is`(values.single()))
         }
     }
 
@@ -190,9 +192,9 @@ class CommitsRepositoryImplTest {
         // when
         repository.getCommitsByOwnerAndRepo(params).captureValues {
             // then
-            Assert.assertEquals(values.size, 2)
-            Assert.assertEquals(Result.Loading(null), values.first())
-            Assert.assertEquals(Result.Success(expectedData), values.last())
+            assertThat(values.size, `is`(2))
+            assertThat(Result.Loading(null), `is`(values.first()))
+            assertThat(Result.Success(expectedData), `is`(values.last()))
         }
     }
 
@@ -213,9 +215,9 @@ class CommitsRepositoryImplTest {
         // when
         repository.getCommitsByOwnerAndRepo(params).captureValues {
             // then
-            Assert.assertEquals(values.size, 2)
-            Assert.assertEquals(Result.Loading(null), values.first())
-            Assert.assertEquals(Result.Error<List<Repo>>(expectedError), values.last())
+            assertThat(values.size, `is`(2))
+            assertThat(Result.Loading(null), `is`(values.first()))
+            assertThat(Result.Error<List<Repo>>(expectedError), `is`(values.last()))
         }
     }
 
@@ -229,7 +231,7 @@ class CommitsRepositoryImplTest {
         // when
         repository.getCommitsByOwnerAndRepo(params).captureValues {
             // then
-            Assert.assertEquals(values.size, 2)
+            assertThat(values.size, `is`(2))
             assert(values.first() is Result.Loading)
             assert(values.last() is Result.Error)
             assert((values.last() as Result.Error).error is NetworkFailure)

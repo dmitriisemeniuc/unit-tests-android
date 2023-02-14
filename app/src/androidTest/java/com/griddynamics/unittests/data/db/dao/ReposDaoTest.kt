@@ -8,7 +8,7 @@ import com.griddynamics.unittests.data.db.entities.RepoEntity
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.runBlocking
 import org.hamcrest.CoreMatchers
-import org.hamcrest.MatcherAssert
+import org.hamcrest.MatcherAssert.assertThat
 import org.hamcrest.core.Is.`is`
 import org.junit.After
 import org.junit.Before
@@ -48,11 +48,11 @@ class ReposDaoTest {
         val loaded = database.getReposDao().findById(repo.id)
 
         // then - The loaded data contains the expected values.
-        MatcherAssert.assertThat(loaded as RepoEntity, CoreMatchers.notNullValue())
-        MatcherAssert.assertThat(loaded.id, `is`(repo.id))
-        MatcherAssert.assertThat(loaded.name, `is`(repo.name))
-        MatcherAssert.assertThat(loaded.description, `is`(repo.description))
-        MatcherAssert.assertThat(loaded.user, `is`(repo.user))
+        assertThat(loaded as RepoEntity, CoreMatchers.notNullValue())
+        assertThat(loaded.id, `is`(repo.id))
+        assertThat(loaded.name, `is`(repo.name))
+        assertThat(loaded.description, `is`(repo.description))
+        assertThat(loaded.user, `is`(repo.user))
     }
 
     @Test
@@ -72,10 +72,10 @@ class ReposDaoTest {
         val loaded = database.getReposDao().findById(repo.id)
 
         // then - The loaded data contains the expected values.
-        MatcherAssert.assertThat(loaded as RepoEntity, CoreMatchers.notNullValue())
-        MatcherAssert.assertThat(loaded.id, `is`(repo.id))
-        MatcherAssert.assertThat(loaded.name, `is`(repo.name))
-        MatcherAssert.assertThat(loaded.description, `is`(repo.description))
-        MatcherAssert.assertThat(loaded.user, `is`(repo.user))
+        assertThat(loaded as RepoEntity, CoreMatchers.notNullValue())
+        assertThat(loaded.id, `is`(repo.id))
+        assertThat(loaded.name, `is`(repo.name))
+        assertThat(loaded.description, `is`(repo.description))
+        assertThat(loaded.user, `is`(repo.user))
     }
 }

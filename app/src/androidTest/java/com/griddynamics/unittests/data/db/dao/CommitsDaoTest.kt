@@ -9,7 +9,7 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.runBlocking
 import org.hamcrest.CoreMatchers
 import org.hamcrest.MatcherAssert.assertThat
-import org.hamcrest.core.Is
+import org.hamcrest.core.Is.`is`
 import org.junit.After
 import org.junit.Before
 import org.junit.Rule
@@ -54,11 +54,11 @@ class CommitsDaoTest {
 
         // then - The loaded data contains the expected values.
         assertThat(loaded as CommitEntity, CoreMatchers.notNullValue())
-        assertThat(loaded.id, Is.`is`(commit.id))
-        assertThat(loaded.message, Is.`is`(commit.message))
-        assertThat(loaded.committer, Is.`is`(commit.committer))
-        assertThat(loaded.timestamp, Is.`is`(commit.timestamp))
-        assertThat(loaded.repoId, Is.`is`(commit.repoId))
+        assertThat(loaded.id, `is`(commit.id))
+        assertThat(loaded.message, `is`(commit.message))
+        assertThat(loaded.committer, `is`(commit.committer))
+        assertThat(loaded.timestamp, `is`(commit.timestamp))
+        assertThat(loaded.repoId, `is`(commit.repoId))
     }
 
     @Test
@@ -85,10 +85,10 @@ class CommitsDaoTest {
 
         // then - The loaded data contains the expected values.
         assertThat(loaded as CommitEntity, CoreMatchers.notNullValue())
-        assertThat(loaded.id, Is.`is`(commit.id))
-        assertThat(loaded.message, Is.`is`(commit.message))
-        assertThat(loaded.timestamp, Is.`is`(commit.timestamp))
-        assertThat(loaded.committer, Is.`is`(commit.committer))
-        assertThat(loaded.repoId, Is.`is`(commit.repoId))
+        assertThat(loaded.id, `is`(commit.id))
+        assertThat(loaded.message, `is`(commit.message))
+        assertThat(loaded.timestamp, `is`(commit.timestamp))
+        assertThat(loaded.committer, `is`(commit.committer))
+        assertThat(loaded.repoId, `is`(commit.repoId))
     }
 }

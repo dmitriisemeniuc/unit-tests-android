@@ -6,7 +6,8 @@ import com.griddynamics.unittests.data.api.model.response.CommitterResponse
 import com.griddynamics.unittests.data.db.entities.CommitEntity
 import com.griddynamics.unittests.domain.model.Commit
 import com.griddynamics.unittests.util.TestUtil.toTimeStamp
-import org.assertj.core.api.Assertions.assertThat
+import org.hamcrest.MatcherAssert.assertThat
+import org.hamcrest.core.Is.`is`
 import org.junit.Before
 import org.junit.Test
 
@@ -36,10 +37,10 @@ class CommitMapperTest {
         val entity: CommitEntity = mapper.mapDomainToStorage(commit)
 
         // then
-        assertThat(entity.id).isEqualTo(commit.sha)
-        assertThat(entity.committer).isEqualTo(commit.committer)
-        assertThat(entity.repoId).isEqualTo(commit.repoId)
-        assertThat(entity.message).isEqualTo(commit.message)
+        assertThat(entity.id, `is`(commit.sha))
+        assertThat(entity.committer, `is`(commit.committer))
+        assertThat(entity.repoId, `is`(commit.repoId))
+        assertThat(entity.message, `is`(commit.message))
     }
 
     @Test
@@ -51,11 +52,11 @@ class CommitMapperTest {
         val commit: Commit = mapper.mapStorageToDomain(entity)
 
         // then
-        assertThat(entity.id).isEqualTo(commit.sha)
-        assertThat(entity.committer).isEqualTo(commit.committer)
-        assertThat(entity.repoId).isEqualTo(commit.repoId)
-        assertThat(entity.message).isEqualTo(commit.message)
-        assertThat(entity.timestamp).isEqualTo(commit.timestamp)
+        assertThat(entity.id, `is`(commit.sha))
+        assertThat(entity.committer, `is`(commit.committer))
+        assertThat(entity.repoId, `is`(commit.repoId))
+        assertThat(entity.message, `is`(commit.message))
+        assertThat(entity.timestamp, `is`(commit.timestamp))
     }
 
     @Test
@@ -67,10 +68,10 @@ class CommitMapperTest {
         val commit: Commit = mapper.mapApiToDomain(commitsResponse, FAKE_REPO_ID)
 
         // then
-        assertThat(commitsResponse.sha).isEqualTo(commit.sha)
-        assertThat(commitsResponse.commit?.message).isEqualTo(commit.message)
-        assertThat(commitsResponse.commit?.committer?.date?.toTimeStamp()).isEqualTo(commit.timestamp)
-        assertThat(commitsResponse.committer?.login).isEqualTo(commit.committer)
+        assertThat(commitsResponse.sha, `is`(commit.sha))
+        assertThat(commitsResponse.commit?.message, `is`(commit.message))
+        assertThat(toTimeStamp(commitsResponse.commit?.committer?.date.orEmpty()), `is`(commit.timestamp))
+        assertThat(commitsResponse.committer?.login, `is`(commit.committer))
     }
 
     private fun createFakeCommit(): Commit {

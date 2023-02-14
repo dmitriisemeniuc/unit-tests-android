@@ -8,8 +8,8 @@ import com.griddynamics.unittests.data.db.entities.RepoEntity
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.runBlocking
 import org.hamcrest.CoreMatchers
-import org.hamcrest.MatcherAssert
-import org.hamcrest.core.Is
+import org.hamcrest.MatcherAssert.assertThat
+import org.hamcrest.core.Is.`is`
 import org.junit.After
 import org.junit.Before
 import org.junit.Rule
@@ -57,11 +57,11 @@ class ReposLocalDataSourceImplTest {
         val loaded = localDataSource.getRepoById(repo.id)
 
         // then - The loaded data contains the expected values.
-        MatcherAssert.assertThat(loaded as RepoEntity, CoreMatchers.notNullValue())
-        MatcherAssert.assertThat(loaded.id, Is.`is`(repo.id))
-        MatcherAssert.assertThat(loaded.name, Is.`is`(repo.name))
-        MatcherAssert.assertThat(loaded.description, Is.`is`(repo.description))
-        MatcherAssert.assertThat(loaded.user, Is.`is`(repo.user))
+        assertThat(loaded as RepoEntity, CoreMatchers.notNullValue())
+        assertThat(loaded.id, `is`(repo.id))
+        assertThat(loaded.name, `is`(repo.name))
+        assertThat(loaded.description, `is`(repo.description))
+        assertThat(loaded.user, `is`(repo.user))
     }
 
     @Test
@@ -82,10 +82,10 @@ class ReposLocalDataSourceImplTest {
         val loaded = localDataSource.getRepoById(repo.id)
 
         // then - The loaded data contains the expected values.
-        MatcherAssert.assertThat(loaded as RepoEntity, CoreMatchers.notNullValue())
-        MatcherAssert.assertThat(loaded.id, Is.`is`(repo.id))
-        MatcherAssert.assertThat(loaded.name, Is.`is`(repo.name))
-        MatcherAssert.assertThat(loaded.description, Is.`is`(repo.description))
-        MatcherAssert.assertThat(loaded.user, Is.`is`(repo.user))
+        assertThat(loaded as RepoEntity, CoreMatchers.notNullValue())
+        assertThat(loaded.id, `is`(repo.id))
+        assertThat(loaded.name, `is`(repo.name))
+        assertThat(loaded.description, `is`(repo.description))
+        assertThat(loaded.user, `is`(repo.user))
     }
 }

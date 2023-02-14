@@ -28,6 +28,8 @@ import io.mockk.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.*
+import org.hamcrest.MatcherAssert.assertThat
+import org.hamcrest.core.Is.`is`
 import org.junit.*
 
 @OptIn(ExperimentalCoroutinesApi::class)
@@ -126,9 +128,9 @@ class CommitsViewModelTest {
         // then
         val expected = mockedCommits
         viewModel.commits.captureValues {
-            Assert.assertEquals(values.size, 1)
+            assertThat(values.size, `is`(1))
             assert(values.single() is Result.Success)
-            Assert.assertEquals(expected, (values.single() as Result.Success<List<Commit>>).data)
+            assertThat(expected, `is`((values.single() as Result.Success<List<Commit>>).data))
         }
     }
 
@@ -147,7 +149,7 @@ class CommitsViewModelTest {
         )
         // then
         viewModel.commits.captureValues {
-            Assert.assertEquals(values.size, 2)
+            assertThat(values.size, `is`(2))
             assert(values.first() is Result.Loading)
             assert(values.last() is Result.Error)
             assert((values.last() as Result.Error).error is NetworkFailure)
@@ -177,10 +179,10 @@ class CommitsViewModelTest {
         // then
         val expected = mockedCommits
         viewModel.commits.captureValues {
-            Assert.assertEquals(values.size, 2)
+            assertThat(values.size, `is`(2))
             assert(values.first() is Result.Loading)
             assert(values.last() is Result.Success)
-            Assert.assertEquals(expected, (values.last() as Result.Success<List<Commit>>).data)
+            assertThat(expected, `is`((values.last() as Result.Success<List<Commit>>).data))
         }
     }
 }

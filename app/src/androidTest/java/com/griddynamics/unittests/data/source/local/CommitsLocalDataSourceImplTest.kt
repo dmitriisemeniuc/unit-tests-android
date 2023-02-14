@@ -9,7 +9,7 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.runBlocking
 import org.hamcrest.CoreMatchers
 import org.hamcrest.MatcherAssert.assertThat
-import org.hamcrest.core.Is
+import org.hamcrest.core.Is.`is`
 import org.junit.After
 import org.junit.Before
 import org.junit.Rule
@@ -59,11 +59,11 @@ class CommitsLocalDataSourceImplTest {
 
         // then - The loaded data contains the expected values.
         assertThat(loaded as CommitEntity, CoreMatchers.notNullValue())
-        assertThat(loaded.id, Is.`is`(commit.id))
-        assertThat(loaded.committer, Is.`is`(commit.committer))
-        assertThat(loaded.message, Is.`is`(commit.message))
-        assertThat(loaded.repoId, Is.`is`(commit.repoId))
-        assertThat(loaded.timestamp, Is.`is`(commit.timestamp))
+        assertThat(loaded.id, `is`(commit.id))
+        assertThat(loaded.committer, `is`(commit.committer))
+        assertThat(loaded.message, `is`(commit.message))
+        assertThat(loaded.repoId, `is`(commit.repoId))
+        assertThat(loaded.timestamp, `is`(commit.timestamp))
     }
 
     @Test
@@ -90,10 +90,10 @@ class CommitsLocalDataSourceImplTest {
 
         // then - The loaded data contains the expected values.
         assertThat(loaded as CommitEntity, CoreMatchers.notNullValue())
-        assertThat(loaded.id, Is.`is`(commit.id))
-        assertThat(loaded.message, Is.`is`(commit.message))
-        assertThat(loaded.committer, Is.`is`(commit.committer))
-        assertThat(loaded.repoId, Is.`is`(commit.repoId))
-        assertThat(loaded.timestamp, Is.`is`(commit.timestamp))
+        assertThat(loaded.id, `is`(commit.id))
+        assertThat(loaded.message, `is`(commit.message))
+        assertThat(loaded.committer, `is`(commit.committer))
+        assertThat(loaded.repoId, `is`(commit.repoId))
+        assertThat(loaded.timestamp, `is`(commit.timestamp))
     }
 }

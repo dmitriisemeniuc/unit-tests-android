@@ -24,10 +24,11 @@ import com.griddynamics.unittests.presentation.extensions.isNetworkAvailable
 import com.griddynamics.unittests.presentation.util.CacheTimeLimiter
 import com.griddynamics.unittests.util.TestUtil
 import io.mockk.*
-import org.junit.Assert.assertEquals
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.*
+import org.hamcrest.MatcherAssert.assertThat
+import org.hamcrest.core.Is.`is`
 import org.junit.After
 import org.junit.Before
 import org.junit.Rule
@@ -115,9 +116,9 @@ class SearchReposViewModelTest {
         // then
         val expected = mockedRepos
         viewModel.repositories.captureValues {
-            assertEquals(values.size, 1)
+            assertThat(values.size, `is`(1))
             assert(values.single() is Result.Success)
-            assertEquals(expected, (values.single() as Result.Success<List<Repo>>).data)
+            assertThat(expected, `is`((values.single() as Result.Success<List<Repo>>).data))
         }
     }
 
@@ -132,7 +133,7 @@ class SearchReposViewModelTest {
         viewModel.search(USER)
         // then
         viewModel.repositories.captureValues {
-            assertEquals(values.size, 2)
+            assertThat(values.size, `is`(2))
             assert(values.first() is Result.Loading)
             assert(values.last() is Result.Error)
             assert((values.last() as Result.Error).error is NetworkFailure)
@@ -153,10 +154,10 @@ class SearchReposViewModelTest {
         // then
         val expected = mockedRepos
         viewModel.repositories.captureValues {
-            assertEquals(values.size, 2)
+            assertThat(values.size, `is`(2))
             assert(values.first() is Result.Loading)
             assert(values.last() is Result.Success)
-            assertEquals(expected, (values.last() as Result.Success<List<Repo>>).data)
+            assertThat(expected, `is`((values.last() as Result.Success<List<Repo>>).data))
         }
     }
 }
